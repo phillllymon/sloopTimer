@@ -1,0 +1,46 @@
+.class-list {
+    border-right: 1vw solid rgb(63, 63, 136);
+    border-bottom: 1vw solid rgb(63, 63, 136);
+    border-left: 1vw solid rgb(0, 0, 56);
+    border-top: 1vw solid rgb(0, 0, 56);
+    background-color: rgb(0, 0, 182);
+    width: 90%;
+    padding: 2vw;
+    color: white;
+    border-radius: 2vw;
+    font-size: 5vw;
+    font-family: sans-serif;
+    margin-top: 1vw;
+}
+
+.class-title {
+    margin-left: 2vw;
+}
+
+.boat-entry {
+    border-left: 1vw solid rgb(63, 63, 136);
+    border-top: 1vw solid rgb(63, 63, 136);
+    border-right: 1vw solid rgb(0, 0, 56);
+    border-bottom: 1vw solid rgb(0, 0, 56);
+    background-color: rgb(0, 0, 182);
+    padding: 2vw;
+    color: white;
+    width: 94%;
+    border-radius: 2vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.class-name-input {
+    font-size: 6vw;
+    width: 80%;
+    margin-right: 2vw;
+}
+
+.class-add-button {
+    font-size: 6vw;
+    width: 10vw;
+    text-align: center;
+}

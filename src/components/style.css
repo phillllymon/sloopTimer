@@ -1,0 +1,112 @@
+.all-background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
+}
+
+.page {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 100vw;
+    height: 82vh;
+    background-color: white;
+    box-sizing: border-box;
+    background-color: darkblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: auto;
+}
+
+.pages {
+    position: absolute;
+    left: 0%;
+    top: 8vh;
+    width: 100vw;
+    height: 92vh;
+}
+
+.tab-container {
+    position: absolute;
+    left: 0px;
+    top: 100%;
+    width: 100%;
+    height: 10vh;
+    transform: translate(0%, -100%);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tab {
+    width: 25vw;
+    height: 10vh;
+    background-color: white;
+    color: rgb(145, 145, 145);
+    font-family: sans-serif;
+    font-size: 6vw;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: rgb(0, 0, 182);
+}
+
+.tab-active {
+    color: red;
+    border-top: none;
+}
+
+.race-title {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(0, 0, 182);;
+    color: white;
+    font-family: sans-serif;
+    font-size: 6vw;
+}
+
+.horizontal-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.horizontal-between {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.arrow-button {
+    border-left: 1vw solid rgb(63, 63, 136);
+    border-top: 1vw solid rgb(63, 63, 136);
+    border-right: 1vw solid rgb(0, 0, 56);
+    border-bottom: 1vw solid rgb(0, 0, 56);
+    background-color: rgb(0, 0, 182);
+    padding: 1vw;
+    color: lightgray;
+    border-radius: 2vw;
+}
+
+.blue-button {
+    border-left: 1vw solid rgb(63, 63, 136);
+    border-top: 1vw solid rgb(63, 63, 136);
+    border-right: 1vw solid rgb(0, 0, 56);
+    border-bottom: 1vw solid rgb(0, 0, 56);
+    background-color: rgb(0, 0, 182);
+    padding: 2vw;
+    color: lightgray;
+    border-radius: 2vw;
+}
