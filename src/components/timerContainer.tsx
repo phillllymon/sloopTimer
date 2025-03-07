@@ -162,6 +162,7 @@ export const TimerContainer: React.FC = () => {
         }}>
             <div>
                 <div className="all-background"></div>
+                
                 <RaceTitle />
                 <Pages />
             </div>

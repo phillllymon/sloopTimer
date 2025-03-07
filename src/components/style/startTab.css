@@ -1,0 +1,26 @@
+.large-digit-box {
+    width: 8vw;
+    height: 10vw;
+    background-color: black;
+    border-radius: 0.5vw;
+    margin: 0.5vw;
+    text-align: center;
+    font-size: 8vw;
+}
+
+.mini-digit-box {
+    width: 3.5vw;
+    height: 6vw;
+    background-color: black;
+    border-radius: 0.5vw;
+    margin: 0.5vw;
+    text-align: center;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}

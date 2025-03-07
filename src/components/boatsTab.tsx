@@ -7,6 +7,9 @@ import { ClassList } from "./classList";
 export const BoatsTab: React.FC = () => {
     const raceContext = useContext(RaceContext);
     const [rando, setRando] = useState(Math.random());  // hack to force rerender - see setRando(Math.random()) in handleAddNewClass
+    const forceUpdate = () => {
+        setRando(Math.random());
+    };
     const handleAddNewClass = () => {
         const newClassName = (document.getElementById("new-class-name") as HTMLInputElement).value;
         if (newClassName.length > 0) {
@@ -29,6 +32,7 @@ export const BoatsTab: React.FC = () => {
                     <ClassList
                         raceIdx={raceContext.raceIdx}
                         classIdx={i}
+                        forceUpdate={forceUpdate}
                         key={i} />
                 )
             })}

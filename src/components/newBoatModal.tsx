@@ -17,7 +17,6 @@ export const NewBoatModal: React.FC<NewBoatModalProps> = (props: NewBoatModalPro
         const newPhrf = (document.getElementById("new-boat-phrf") as HTMLInputElement).value;
         const newNotes = (document.getElementById("new-boat-notes") as HTMLInputElement).value;
         if (newBoatName.length > 0) {
-            console.log("Add boat");
             const raceList = raceContext.raceList;
             raceList[props.raceIdx].classes[props.classIdx].boatList.push({
                 name: newBoatName,
@@ -27,6 +26,10 @@ export const NewBoatModal: React.FC<NewBoatModalProps> = (props: NewBoatModalPro
             });
             raceContext.setNewRaceList(raceList);
             props.hideModal();
+            (document.getElementById("new-boat-name") as HTMLInputElement).value = "";
+            (document.getElementById("new-boat-sail-number") as HTMLInputElement).value = "";
+            (document.getElementById("new-boat-phrf") as HTMLInputElement).value = "";
+            (document.getElementById("new-boat-notes") as HTMLInputElement).value = "";
         }
     };
     return (

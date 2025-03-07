@@ -4,10 +4,10 @@ import "./style/boatsTab.css";
 import { RaceContext } from "./timerContainer";
 import { RightArrow } from "./icons/rightArrow";
 import { DownArrow } from "./icons/downArrow";
-import { Edit } from "./icons/edit";
 import { BoatEntry } from "./boatEntry";
-import { NewBoatModal } from "./newBoatModal";
-import { EditClassModal } from "./editClassModal";
+import { MiniStartTime } from "./miniStartTime";
+import { Edit } from "./icons/edit";
+import { SetStartTimeModal } from "./setStartTimeModal";
 
 type ClassListProps = {
     raceIdx: number,
@@ -15,27 +15,37 @@ type ClassListProps = {
     forceUpdate: () => void
 };
 
-export const ClassList: React.FC<ClassListProps> = (props: ClassListProps) => {
-    const [newBoatModalOpen, setNewBoatModalOpen] = useState(false);
-    const [editClassModalOpen, setEditClassModalOpen] = useState(false);
+export const ClassStart: React.FC<ClassListProps> = (props: ClassListProps) => {
+    const raceContext = useContext(RaceContext);
+    const startTime = raceContext.raceList[props.raceIdx].classes[props.classIdx].startTime;
+    const [setStartTimeModalOpen, setSetStartTimeModalOpen] = useState(false);
+    const [startHours, setStartHours] = useState(startTime ? startTime.hours : false);
+    const [startMinutes, setStartMinutes] = useState(startTime ? startTime.minutes : false);
+    const [startSeconds, setStartSeconds] = useState(startTime ? startTime.seconds : false);
+    const setHours = (newHours: number): void => {
+        setStartHours(newHours);
+    }
+    const setMinutes = (newMinutes: number): void => {
+        setStartMinutes(newMinutes);
+    }
+    const setSeconds = (newSeconds: number): void => {
+        setStartSeconds(newSeconds);
+    }
     const [expanded, setExpanded] = useState(false);
     const handleExpand = () => {
         setExpanded(expanded ? false : true);
     }
-    const raceContext = useContext(RaceContext);
+    
     
     return (
         <>
-            {editClassModalOpen && <EditClassModal 
-                hideModal={() => setEditClassModalOpen(false)}
+            {setStartTimeModalOpen && <SetStartTimeModal 
+                hideModal={() => setSetStartTimeModalOpen(false)}
                 raceIdx={props.raceIdx}
                 classIdx={props.classIdx}
-                forceUpdate={props.forceUpdate}
-                />}
-            {newBoatModalOpen && <NewBoatModal 
-                hideModal={() => setNewBoatModalOpen(false)}
-                raceIdx={props.raceIdx}
-                classIdx={props.classIdx} 
+                setHours={setHours}
+                setMinutes={setMinutes}
+                setSeconds={setSeconds}
                 />}
             <div className="class-list">
                 <div className="horizontal-between">
@@ -47,14 +57,11 @@ export const ClassList: React.FC<ClassListProps> = (props: ClassListProps) => {
                             {props.raceIdx > -1 && raceContext.raceList[props.raceIdx].classes[props.classIdx].name}
                         </div>
                     </div>
-                    <div className="horizontal-right">
-                        <div className="blue-button" onClick={() => setEditClassModalOpen(true)}>
+                    <div className="horizontal-left">
+                        <MiniStartTime hours={startHours} minutes={startMinutes} seconds={startSeconds}/>
+                        <div className="space"></div>
+                        <div className="blue-button" onClick={() => setSetStartTimeModalOpen(true)}>
                             <Edit />
-                        </div>
-                        <div className="space">
-                        </div>
-                        <div className="blue-button" onClick={() => setNewBoatModalOpen(true)}>
-                            + Boat
                         </div>
                     </div>
                 </div>
