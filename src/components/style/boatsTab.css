@@ -44,3 +44,11 @@
     width: 10vw;
     text-align: center;
 }
+
+.selected {
+    background-color: orange;
+    border-right: 1vw solid rgb(63, 63, 136);
+    border-bottom: 1vw solid rgb(63, 63, 136);
+    border-left: 1vw solid rgb(0, 0, 56);
+    border-top: 1vw solid rgb(0, 0, 56);
+}

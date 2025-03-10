@@ -23,7 +23,7 @@ export type BoatClass = {
     boatList: Boat[],
     startTime?: StartTime,
     cleared: boolean,
-    overEarly: Boat[]
+    overEarly: string[] // use boat name
 }
 
 export type Race = {
