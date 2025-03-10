@@ -3,6 +3,7 @@ import "./style.css";
 import "./style/startTab.css";
 import { RaceContext } from "./timerContainer";
 import { OverEarlyModal } from "./overEarlyModal";
+import { EarlyBoat } from "./earlyBoat";
 
 type StartClearToolProps = {
     raceIdx: number,
@@ -21,23 +22,35 @@ export const StartClearTool: React.FC<StartClearToolProps> = (props: StartClearT
     const officialTimeToUse = props.currentTime;
     const started = officialTimeToUse > startTimeMs;
 
-    const startCleared = raceContext.raceList[props.raceIdx].classes[props.classIdx].cleared;
+    let startCleared = raceContext.raceList[props.raceIdx].classes[props.classIdx].cleared;
 
     const [earlyReported, setEarlyReported] = useState(startCleared ? true : raceContext.raceList[props.raceIdx].classes[props.classIdx].overEarly.length > 0 ? true : false);
     const [overEarlyModalOpen, setOverEarlyModalOpen] = useState(false);
 
     const handleClearStart = () => {
-        console.log("clear start");
         const raceList = raceContext.raceList;
         raceList[props.raceIdx].classes[props.classIdx].cleared = true;
         raceContext.setNewRaceList(raceList);
         setEarlyReported(true);
+    };
+
+    const reportEarly = () => {
+        setEarlyReported(true);
+        if (raceContext.raceList[props.raceIdx].classes[props.classIdx].overEarly.length === 0) {
+            handleClearStart();
+        }
+    };
+
+    const [rando, setRando] = useState(Math.random());
+    const forceUpdate = () => {
+        setRando(Math.random());
     };
     return (
         <div>
             {overEarlyModalOpen && <OverEarlyModal 
                 raceIdx={props.raceIdx}
                 classIdx={props.classIdx}
+                reportEarly={reportEarly}
                 hideModal={() => setOverEarlyModalOpen(false)} />}
             <div className="vertical-space"></div>
             {started && (
@@ -49,15 +62,35 @@ export const StartClearTool: React.FC<StartClearToolProps> = (props: StartClearT
                                     All clear
                                 </div>
                             ) : (
-                                <div>
-                                    {raceContext.raceList[props.raceIdx].classes[props.classIdx].overEarly.map((boatName, i) => {
-                                        return (
-                                            <div key={i}>
-                                                {boatName}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                                <>
+                                    <div>
+                                        {raceContext.raceList[props.raceIdx].classes[props.classIdx].overEarly.map((boatName, i) => {
+                                            let boatIdx: number | false = false;
+                                            raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList.forEach((boatEntry, idx) => {
+                                                if (boatEntry.name === boatName) {
+                                                    boatIdx = idx;
+                                                }
+                                            });
+                                            if (boatIdx !== false) {
+                                                return (
+                                                    <div key={i}>
+                                                        <EarlyBoat
+                                                            raceIdx={props.raceIdx}
+                                                            classIdx={props.classIdx}
+                                                            boatIdx={boatIdx}
+                                                            clearStart={handleClearStart}
+                                                            forceUpdate={forceUpdate} />
+                                                    </div>
+                                                );
+                                            } else {
+                                                return "";
+                                            }
+                                        })}
+                                    </div>
+                                    <div className="blue-button" onClick={() => setOverEarlyModalOpen(true)}>
+                                        + Early boats
+                                    </div>
+                                </>
                             )}
                         </div>
                     ) : (

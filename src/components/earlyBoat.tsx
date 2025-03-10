@@ -3,36 +3,38 @@ import "./style.css";
 import "./style/boatsTab.css";
 import { RaceContext } from "./timerContainer";
 
-type BoatSelectEntryProps = {
+type EarlyBoatProps = {
     raceIdx: number,
     classIdx: number,
     boatIdx: number,
+    clearStart: () => void,
+    forceUpdate: () => void
 };
 
-export const BoatSelectEntry: React.FC<BoatSelectEntryProps> = (props: BoatSelectEntryProps) => {
+export const EarlyBoat: React.FC<EarlyBoatProps> = (props: EarlyBoatProps) => {
     const raceContext = useContext(RaceContext);
     const boatName = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].name;
-
-    const [selected, setSelected] = useState(raceContext.raceList[props.raceIdx].classes[props.classIdx].overEarly.includes(boatName));
-
-    const handleSelect = () => {
-        setSelected(selected ? false : true);
+    const clearBoat = () => {
         const raceList = raceContext.raceList;
-        if (!selected) {    // seems backwards, but setSelected doesn't kick in till next render
-            raceList[props.raceIdx].classes[props.classIdx].overEarly.push(boatName);
-        } else {
-            raceList[props.raceIdx].classes[props.classIdx].overEarly = arrDelete(raceList[props.raceIdx].classes[props.classIdx].overEarly, boatName);
+        const overEarlyList = raceList[props.raceIdx].classes[props.classIdx].overEarly;
+        raceList[props.raceIdx].classes[props.classIdx].overEarly = arrDelete(overEarlyList, boatName);
+        if (raceList[props.raceIdx].classes[props.classIdx].overEarly.length === 0) {
+            props.clearStart();
         }
         raceContext.setNewRaceList(raceList);
+        props.forceUpdate();
     };
+    
     return (
-        <div className={selected ? "boat-entry selected" : "boat-entry"} onClick={handleSelect}>
+        <div className="boat-entry">
             <div>
                 {boatName}
             </div>
-            <div></div>
             <div>
                 {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].sailNumber}
+            </div>
+            <div className="blue-button background-orange" onClick={clearBoat}>
+                Clear
             </div>
         </div>
     );

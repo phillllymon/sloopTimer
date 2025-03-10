@@ -76,5 +76,6 @@
 .modal-content {
     max-height: 60vh;
     overflow-y: auto;
-    overflow-x: hide;
+    /* overflow-x: hide; */
+    width: 96%;
 }
