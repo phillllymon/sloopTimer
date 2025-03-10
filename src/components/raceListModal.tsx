@@ -18,15 +18,16 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
         if (newRaceName.length > 0) {
             const raceList = raceContext.raceList;
             const today = new Date(Date.now());
-            raceList.push({
+            const newRace = {
                 name: newRaceName,
                 startDay: {
                     year: today.getFullYear(),
-                    month: today.getMonth(),
+                    month: today.getMonth() + 1,
                     day: today.getDate()
                 },
-                classes: []
-            });
+                classes: [],
+            };
+            raceList.push(newRace);
             raceContext.setNewRaceList(raceList);
             raceContext.setRaceIdx(raceList.length - 1);
             props.hideModal();

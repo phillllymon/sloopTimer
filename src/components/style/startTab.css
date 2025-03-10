@@ -1,4 +1,14 @@
-.large-digit-box {
+.value-box {
+    width: 18vw;
+    height: 9vw;
+    background-color: black;
+    border-radius: 0.5vw;
+    margin: 0.5vw;
+    text-align: center;
+    font-size: 7vw;
+}
+
+.digit-box {
     width: 8vw;
     height: 10vw;
     background-color: black;
@@ -15,6 +25,16 @@
     border-radius: 0.5vw;
     margin: 0.5vw;
     text-align: center;
+}
+
+.large-digit-box {
+    width: 11vw;
+    height: 13vw;
+    background-color: black;
+    border-radius: 0.5vw;
+    margin: 0.5vw;
+    text-align: center;
+    font-size: 11vw;
 }
 
 .red {

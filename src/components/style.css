@@ -150,3 +150,11 @@
     padding-right: 5vw;
     padding-left: 5vw;
 }
+
+.background-red {
+    background-color: red;
+}
+
+.background-green {
+    background-color: green;
+}

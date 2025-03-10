@@ -21,7 +21,9 @@ export type BoatClass = {
     raceName: string,
     name: string,
     boatList: Boat[],
-    startTime?: StartTime
+    startTime?: StartTime,
+    cleared: boolean,
+    overEarly: Boat[]
 }
 
 export type Race = {

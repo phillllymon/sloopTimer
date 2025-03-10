@@ -17,7 +17,9 @@ export const BoatsTab: React.FC = () => {
             raceList[raceContext.raceIdx].classes.push({
                 raceName: raceList[raceContext.raceIdx].name,
                 name: newClassName,
-                boatList: []
+                boatList: [],
+                cleared: false,
+                overEarly: []
             });
             raceContext.setNewRaceList(raceList);
             setRando(Math.random());    // force rerender - see above
