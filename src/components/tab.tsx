@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 
 type TabProps = {
-    label: string;
+    label: string | React.ReactElement;
     active: boolean;
     setActive: () => void;
 }
@@ -12,8 +12,9 @@ export const Tab: React.FC<TabProps> = (props: TabProps) => {
         <div
             className={props.active ? "tab tab-active" : "tab"}
             onClick={props.setActive}>
-            <br />
-            {props.label}
+            <>
+                {props.label}
+            </>
         </div>
     );
 };

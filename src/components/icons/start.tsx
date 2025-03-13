@@ -5,7 +5,7 @@ type BoatsProps = {
     color: string
 }
 
-export const Boats: React.FC<BoatsProps> = (props: BoatsProps) => {
+export const Start: React.FC<BoatsProps> = (props: BoatsProps) => {
     if (props.color === "red") {
         return (
             <div className="icon">

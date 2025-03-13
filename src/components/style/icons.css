@@ -60,3 +60,70 @@
     border-right: 5vw solid lightgray;
 }
 
+.icon {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    /* width: 100%; */
+    /* border: 2px solid red; */
+    box-sizing: border-box;
+}
+
+/* boats icon */
+.main-sail {
+    position: absolute;
+    height: 0%;
+    width: 0%;
+    border-left: 2vh solid transparent;
+    border-bottom: 4vh solid gray;
+}
+.jib-sail {
+    position: absolute;
+    height: 0%;
+    width: 0%;
+    border-right: 1.25vh solid transparent;
+    border-bottom: 3vh solid gray;
+}
+.hull {
+    position: absolute;
+    height: 0%;
+    width: 3vh;
+    border-top: 0.5vh solid gray;
+    border-left: 0.5vh solid transparent;
+    border-right: 0.5vh solid transparent;
+}
+.main-sail-red {
+    border-bottom: 4vh solid red;
+}
+.jib-sail-red {
+    border-bottom: 3vh solid red;
+}
+.hull-red {
+    border-top: 0.5vh solid red;
+}
+
+.main-sail-a {
+    left: 51%;
+    top: 30%;
+}
+.jib-sail-a {
+    left: 73%;
+    top: 40%;
+}
+.hull-a {
+    left: 47%;
+    top: 71%;
+}
+
+.main-sail-b {
+    left: 26%;
+    top: 20%;
+}
+.jib-sail-b {
+    left: 48%;
+    top: 30%;
+}
+.hull-b {
+    left: 22%;
+    top: 61%;
+}
