@@ -6,6 +6,7 @@ import { FinishTab } from "./finishTab";
 import { ResultsTab } from "./resultsTab";
 import { Boats } from "./icons/boats";
 import { Start } from "./icons/start";
+import { Finish } from "./icons/finish";
 
 
 import "./style.css";
@@ -24,7 +25,7 @@ export const Pages: React.FC = () => {
             <div className="tab-container">
                 <Tab label={(<Boats color={activeTab === "boats" ? "red" : "gray"} />)} active={activeTab === "boats"} setActive={() => handleTabSelect("boats")} />
                 <Tab label={(<Start color={activeTab === "start" ? "red" : "gray"} />)} active={activeTab === "start"} setActive={() => handleTabSelect("start")} />
-                <Tab label="finish" active={activeTab === "finish"} setActive={() => handleTabSelect("finish")} />
+                <Tab label={(<Finish color={activeTab === "finish" ? "red" : "gray"} />)} active={activeTab === "finish"} setActive={() => handleTabSelect("finish")} />
                 <Tab label="results" active={activeTab === "results"} setActive={() => handleTabSelect("results")} />
             </div>
         </div>
