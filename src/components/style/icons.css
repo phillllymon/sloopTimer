@@ -238,4 +238,142 @@
     border-left: 1.5vh solid red;
 }
 
-/* fnish icon */
+/* finish icon */
+.finish-container {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    height: 5vh;
+    width: 4.5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+}
+
+.finish-pole {
+    height: 100%;
+    width: 0.5vh;
+    background-color: gray;
+}
+
+.finish-flag {
+    height: 3vh;
+    width: 4vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.finish-squares-a {
+    height: 1vh;
+    width: 1vh;
+    border-top: 1vh solid gray;
+    border-bottom: 1vh solid gray;
+}
+.finish-squares-b {
+    height: 1vh;
+    width: 1vh;
+    background-color: gray;
+}
+
+.finish-pole-red {
+    background-color: red;
+}
+
+.finish-squares-a-red {
+    border-top: 1vh solid red;
+    border-bottom: 1vh solid red;
+}
+.finish-squares-b-red {
+    background-color: red;
+}
+
+/* results icon */
+.results-base {
+    position: absolute;
+    top: 7.25vh;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 5vh;
+    height: 0.5vh;
+    background-color: gray;
+}
+
+.results-base-b {
+    position: absolute;
+    top: 6.25vh;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 3vh;
+    height: 1vh;
+    background-color: gray;
+    border-top-right-radius: 0.3vh;
+    border-top-left-radius: 0.3vh;
+}
+
+.results-shaft {
+    position: absolute;
+    top: 1.75vh;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 0.5vh;
+    height: 4.75vh;
+    background-color: gray;
+}
+
+.results-bowl-left {
+    position: absolute;
+    top: 1.5vh;
+    left: 45%;
+    transform: translate(-50%, 0%);
+    width: 1.5vh;
+    height: 4vh;
+    background-color: gray;
+    border-bottom-left-radius: 100%;
+}
+.results-bowl-right {
+    position: absolute;
+    top: 1.5vh;
+    left: 55%;
+    transform: translate(-50%, 0%);
+    width: 1.5vh;
+    height: 4vh;
+    background-color: gray;
+    border-bottom-right-radius: 100%;
+}
+
+.results-handles {
+    position: absolute;
+    top: 1.75vh;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 3.5vh;
+    height: 2vh;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border: 0.3vh solid gray;
+}
+
+.results-base-red {
+    background-color: red;
+}
+
+.results-base-b-red {
+    background-color: red;
+}
+
+.results-shaft-red {
+    background-color: red;
+}
+
+.results-bowl-left-red {
+    background-color: red;
+}
+.results-bowl-right-red {
+    background-color: red;
+}
+
+.results-handles-red {
+    border: 0.3vh solid red;
+}
