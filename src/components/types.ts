@@ -2,7 +2,9 @@ export type Boat = {
     name: string,
     sailNumber?: string
     phrf?: number,
-    notes?: string
+    notes?: string,
+    status: "waiting" | "early" | "racing" | "finished" | "dnf" | "retired",
+    finishTime: false | number  // ms timestamp
 };
 
 export type StartTime = {

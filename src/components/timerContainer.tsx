@@ -20,55 +20,81 @@ const raceList: RaceList = [
                 boatList: [
                     {
                         name: "Tatonka",
-                        sailNumber: "6969"
+                        sailNumber: "6969",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Snow Goose",
-                        sailNumber: "1066"
+                        sailNumber: "1066",
+                        status: "waiting",
+                        finishTime: false
                     }
                 ],
                 startTime: {
@@ -85,11 +111,15 @@ const raceList: RaceList = [
                 boatList: [
                     {
                         name: "Hydra",
-                        sailNumber: "1123"
+                        sailNumber: "1123",
+                        status: "waiting",
+                        finishTime: false
                     },
                     {
                         name: "Absolutely",
-                        sailNumber: "USA 95"
+                        sailNumber: "USA 95",
+                        status: "waiting",
+                        finishTime: false
                     }
                 ],
                 startTime: {
@@ -116,7 +146,9 @@ const raceList: RaceList = [
                 boatList: [
                     {
                         name: "Tatonka",
-                        sailNumber: "6969"
+                        sailNumber: "6969",
+                        status: "waiting",
+                        finishTime: false
                     }
                 ],
                 startTime: {
@@ -133,7 +165,9 @@ const raceList: RaceList = [
                 boatList: [
                     {
                         name: "Hydra",
-                        sailNumber: "1123"
+                        sailNumber: "1123",
+                        status: "waiting",
+                        finishTime: false
                     }
                 ],
                 startTime: {
