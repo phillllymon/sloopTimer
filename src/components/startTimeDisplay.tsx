@@ -24,7 +24,6 @@ export const StartTimeDisplay: React.FC<StartTimeDisplayProps> = (props: StartTi
 
     const [days, setDays] = useState(Math.floor(absSeconds / 86400));
     const [hours, setHours] = useState(Math.floor((absSeconds % 86400) / 3600));
-    // const [hours, setHours] = useState(Math.floor(absSeconds / 3600));
     const [minutes, setMinutes] = useState(Math.floor((absSeconds % 3600) / 60));
     const [seconds, setSeconds] = useState(Math.floor(absSeconds % 60));
 

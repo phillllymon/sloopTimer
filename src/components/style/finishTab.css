@@ -2,3 +2,16 @@
     background-color: orange;
     color: black;
 }
+
+.green-text {
+    color: green;
+}
+.red-text {
+    color: red;
+}
+.gray-text {
+    color: gray;
+}
+.small-text {
+    font-size: 2vh;
+}
