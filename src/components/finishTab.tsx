@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "./style.css";
 import { RaceContext } from "./timerContainer";
 import { FinishClassList } from "./finishClassList";
+import { StagingArea } from "./stagingArea";
 
 export const FinishTab: React.FC = () => {
 
@@ -26,17 +27,23 @@ export const FinishTab: React.FC = () => {
     }, []);
 
     return (
-        <div className="page">
-            {raceContext.raceIdx > -1 && raceContext.raceList[raceContext.raceIdx].classes.map((boatClass, i) => {
-                return (
-                    <FinishClassList
-                        raceIdx={raceContext.raceIdx}
-                        classIdx={i}
-                        forceUpdate={forceUpdate}
-                        currentTime={currentTime}
-                        key={i} />
-                )
-            })}
+        <div className="page finish-page">
+            <StagingArea 
+                raceIdx={raceContext.raceIdx}
+                forceUpdate={forceUpdate}
+                currentTime={currentTime} />
+            <div className="scroll-section">
+                {raceContext.raceIdx > -1 && raceContext.raceList[raceContext.raceIdx].classes.map((boatClass, i) => {
+                    return (
+                        <FinishClassList
+                            raceIdx={raceContext.raceIdx}
+                            classIdx={i}
+                            forceUpdate={forceUpdate}
+                            currentTime={currentTime}
+                            key={i} />
+                    )
+                })}
+            </div>
         </div>
     );
 };
