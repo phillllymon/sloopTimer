@@ -6,11 +6,14 @@ import { RightArrow } from "./icons/rightArrow";
 import { DownArrow } from "./icons/downArrow";
 import { FinishBoatEntry } from "./finishBoatEntry";
 import { SmallTimeDisplay } from "./smallTimeDisplay";
+import { StagingArea } from "./stagingArea";
 
 type FinishClassListProps = {
     raceIdx: number,
     classIdx: number,
     currentTime: number,
+    stageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
+    unStageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
     forceUpdate: () => void
 };
 
@@ -44,6 +47,8 @@ export const FinishClassList: React.FC<FinishClassListProps> = (props: FinishCla
                             raceIdx={props.raceIdx}
                             classIdx={props.classIdx}
                             boatIdx={i}
+                            stageBoat={props.stageBoat}
+                            unStageBoat={props.unStageBoat}
                             currentTime={props.currentTime}
                             key={i} />;
                     })}

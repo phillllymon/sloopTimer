@@ -4,10 +4,13 @@ import "./style/finishTab.css";
 import { RaceContext } from "./timerContainer";
 import { RightArrow } from "./icons/rightArrow";
 import { DownArrow } from "./icons/downArrow";
+import { FinishBoatEntry } from "./finishBoatEntry";
 
 type StagingAreaProps = {
-    raceIdx: number,
+    stagedBoats: number[][],
     currentTime: number,
+    stageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
+    unStageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
     forceUpdate: () => void
 };
 
@@ -31,11 +34,27 @@ export const StagingArea: React.FC<StagingAreaProps> = (props: StagingAreaProps)
                         </div>
                     </div>
                 </div>
-                {expanded && <div className="small-italics">
-                    <br/>
-                    <center>drag boats here to stage them for finish</center>
-                    <br/>
-                </div>}
+                {expanded && (props.stagedBoats.length > 0 ? (
+                    props.stagedBoats.map((entryArr, i) => {
+                        return (
+                            <FinishBoatEntry
+                                raceIdx={entryArr[0]}
+                                classIdx={entryArr[1]}
+                                boatIdx={entryArr[2]}
+                                stageBoat={props.stageBoat}
+                                unStageBoat={props.unStageBoat}
+                                currentTime={props.currentTime}
+                                staged={true}
+                                key={i} />
+                        );
+                    })
+                ) : (
+                    <div className="small-italics">
+                        <br/>
+                        <center>stage boats that are near to finish</center>
+                        <br/>
+                    </div>
+                ))}
             </div>
         </>
     );

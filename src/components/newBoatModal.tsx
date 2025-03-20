@@ -24,7 +24,8 @@ export const NewBoatModal: React.FC<NewBoatModalProps> = (props: NewBoatModalPro
                 phrf: newPhrf ? Number.parseFloat(newPhrf) : 0,
                 notes: newNotes,
                 status: "waiting",
-                finishTime: false
+                finishTime: false,
+                staged: false
             });
             raceContext.setNewRaceList(raceList);
             props.hideModal();
