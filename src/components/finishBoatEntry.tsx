@@ -12,6 +12,10 @@ type FinishBoatEntryProps = {
     stageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
     unStageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
     currentTime: number,
+    rando: number,
+    forceUpdate: () => void,
+    finished: boolean,
+    finishTime: number,
     staged?: boolean
 };
 
@@ -25,12 +29,18 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
 
     const [boatFinished, setBoatFinished] = useState(raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].status === "finished");
 
-    const boatFinishTime = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime;
+    // const boatFinishTime = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime;
+    const boatFinishTime = props.finishTime;
 
-    const [seconds, setSeconds] = useState(boatFinishTime ? (boatFinishTime % 60000) / 1000 : 0);
-    const [minutes, setMinutes] = useState(boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000) - (Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0);
-    const [hours, setHours] = useState(boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) : 0);
-    const [days, setDays] = useState(boatFinishTime ? Math.floor(boatFinishTime / 86400000) : 0);
+    // const [seconds, setSeconds] = useState(boatFinishTime ? (boatFinishTime % 60000) / 1000 : 0);
+    // const [minutes, setMinutes] = useState(boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000) - (Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0);
+    // const [hours, setHours] = useState(boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) : 0);
+    // const [days, setDays] = useState(boatFinishTime ? Math.floor(boatFinishTime / 86400000) : 0);
+
+    let seconds = boatFinishTime ? (boatFinishTime % 60000) / 1000 : 0;
+    let minutes = boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000) - (Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0;
+    let hours = boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) : 0;
+    let days = boatFinishTime ? Math.floor(boatFinishTime / 86400000) : 0;
 
     const [currentTimeUpdateTimestamp, setCurrentTimeUpdateTimestamp] = useState<false | number>(false);
 
@@ -43,10 +53,11 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
             if (raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].status === "finished") {
                 const boatTime = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime;
                 if (boatTime) {
-                    setDays(Math.floor(boatTime / 86400000));
-                    setHours(Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000));
-                    setMinutes(Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000) - (Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000));
-                    setSeconds((boatTime % 60000) / 1000);
+
+                    seconds = boatTime ? (boatTime % 60000) / 1000 : 0;
+                    minutes = boatTime ? Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000) - (Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0;
+                    hours = boatTime ? Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) : 0;
+                    days = boatTime ? Math.floor(boatTime / 86400000) : 0;
                     setBoatFinished(true);
                 }
             } else {
@@ -58,17 +69,20 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                 if (currentTimeUpdateTimestamp) {
                     boatTime += (Date.now() - currentTimeUpdateTimestamp);
                 }
-                raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].status = "finished";
-                raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime = boatTime;
-        
-                setDays(Math.floor(boatTime / 86400000));
-                setHours(Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000));
-                setMinutes(Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000) - (Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000));
-                setSeconds((boatTime % 60000) / 1000);
+                const raceList = raceContext.raceList;
+
+                raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime = boatTime;
+                raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].status = "finished";
+                raceContext.setNewRaceList(raceList);
+
+                seconds = boatTime ? (boatTime % 60000) / 1000 : 0;
+                minutes = boatTime ? Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000) - (Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0;
+                hours = boatTime ? Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) : 0;
+                days = boatTime ? Math.floor(boatTime / 86400000) : 0;
                 setBoatFinished(true);
             }
-
         }
+        props.forceUpdate();
     };
 
     const stageBoat = () => {
@@ -88,7 +102,6 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
         return (
             <div className="boat-entry finish-boat-entry stage-boat-entry" onClick={finishBoat}>
                 <div className="horizontal-left">
-
                     <div className="vertical arrow-button">
                         <div onClick={() => console.log("up")}>
                             <UpArrow />
@@ -110,7 +123,7 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                         </div>
                     </div>
                 </div>
-                {boatFinished ? (
+                {props.finished ? (
                     <div className="vertical">
                         <div className="gray-text small-text">
                             Finish time:
@@ -134,7 +147,6 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
     return (
         <div className="boat-entry finish-boat-entry">
             <div className="vertical">
-
                 <div>
                     {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].name}
                 </div>
@@ -143,7 +155,7 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                     {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].sailNumber}
                 </div>
             </div>
-            {boatFinished ? (
+            {props.finished ? (
                 <div className="vertical">
                     <div className="gray-text small-text">
                         Finish time:
@@ -154,9 +166,6 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                 </div>
             ) : (
                 <div className="horizontal-right">
-                    <div className={raceStarted ? "blue-button orange-button" : "blue-button orange-button inactive"} onClick={finishBoat}>
-                        Finish
-                    </div>
                     {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].staged ? (
                         <div className={raceStarted ? "blue-button" : "blue-button inactive"} onClick={unStageBoat}>
                             Unstage
@@ -166,6 +175,9 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                             Stage
                         </div>
                     )}
+                    <div className={raceStarted ? "blue-button orange-button" : "blue-button orange-button inactive"} onClick={finishBoat}>
+                        Finish
+                    </div>
                 </div>
             )}
         </div>

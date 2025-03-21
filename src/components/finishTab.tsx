@@ -11,7 +11,6 @@ export const FinishTab: React.FC = () => {
     const raceContext = useContext(RaceContext);
     const [rando, setRando] = useState(Math.random());  // hack to force rerender - see setRando(Math.random()) in handleAddNewClass
     const [currentTime, setCurrentTime] = useState(raceContext.currentTime + (Date.now() - raceContext.lastUpdateTime));
-    const [stagedBoats, setStagedBoats] = useState<number[][]>([]);
     
     const forceUpdate = () => {
         setRando(Math.random());
@@ -32,9 +31,10 @@ export const FinishTab: React.FC = () => {
         const raceList = raceContext.raceList;
         raceList[raceIdx].classes[classIdx].boatList[boatIdx].staged = true;
         raceContext.setNewRaceList(raceList);
-        const newStagedBoats = stagedBoats;
+        const newStagedBoats = raceContext.stagedBoats;
         newStagedBoats.push([raceIdx, classIdx, boatIdx]);
-        setStagedBoats(newStagedBoats);
+        raceContext.setStagedBoats(newStagedBoats);
+        setRando(Math.random());
     };
 
     const unStageBoat = (raceIdx: number, classIdx: number, boatIdx: number): void => {
@@ -42,23 +42,24 @@ export const FinishTab: React.FC = () => {
         raceList[raceIdx].classes[classIdx].boatList[boatIdx].staged = false;
         raceContext.setNewRaceList(raceList);
         let idx = -1;
-        stagedBoats.forEach((boatArr, i) => {
+        raceContext.stagedBoats.forEach((boatArr, i) => {
             if (boatArr[0] === raceIdx && boatArr[1] === classIdx && boatArr[2] === boatIdx) {
                 idx = i;
             }
         });
         if (idx > -1) {
-            const before = stagedBoats.slice(0, idx);
-            const after = stagedBoats.slice(idx + 1, stagedBoats.length);
-            setStagedBoats(before.concat(after));
+            const before = raceContext.stagedBoats.slice(0, idx);
+            const after = raceContext.stagedBoats.slice(idx + 1, raceContext.stagedBoats.length);
+            const newStagedBoats = before.concat(after);
+            raceContext.setStagedBoats(newStagedBoats);
         }
     };
 
     return (
         <div className="page finish-page">
-            <StagingArea 
-                stagedBoats={stagedBoats}
+            <StagingArea
                 forceUpdate={forceUpdate}
+                rando={rando}
                 currentTime={currentTime}
                 stageBoat={stageBoat}
                 unStageBoat={unStageBoat} />
@@ -69,6 +70,7 @@ export const FinishTab: React.FC = () => {
                             raceIdx={raceContext.raceIdx}
                             classIdx={i}
                             forceUpdate={forceUpdate}
+                            rando={rando}
                             currentTime={currentTime}
                             stageBoat={stageBoat}
                             unStageBoat={unStageBoat}

@@ -7,11 +7,11 @@ import { DownArrow } from "./icons/downArrow";
 import { FinishBoatEntry } from "./finishBoatEntry";
 
 type StagingAreaProps = {
-    stagedBoats: number[][],
     currentTime: number,
     stageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
     unStageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
-    forceUpdate: () => void
+    forceUpdate: () => void,
+    rando: number
 };
 
 export const StagingArea: React.FC<StagingAreaProps> = (props: StagingAreaProps) => {
@@ -34,8 +34,12 @@ export const StagingArea: React.FC<StagingAreaProps> = (props: StagingAreaProps)
                         </div>
                     </div>
                 </div>
-                {expanded && (props.stagedBoats.length > 0 ? (
-                    props.stagedBoats.map((entryArr, i) => {
+                {expanded && (raceContext.stagedBoats.length > 0 ? (
+                    raceContext.stagedBoats.map((entryArr, i) => {
+                        let finishTime = raceContext.raceList[entryArr[0]].classes[entryArr[1]].boatList[entryArr[2]].finishTime;
+                        if (!finishTime) {
+                            finishTime = 10000;
+                        }
                         return (
                             <FinishBoatEntry
                                 raceIdx={entryArr[0]}
@@ -44,6 +48,10 @@ export const StagingArea: React.FC<StagingAreaProps> = (props: StagingAreaProps)
                                 stageBoat={props.stageBoat}
                                 unStageBoat={props.unStageBoat}
                                 currentTime={props.currentTime}
+                                rando={props.rando}
+                                forceUpdate={props.forceUpdate}
+                                finished={raceContext.raceList[entryArr[0]].classes[entryArr[1]].boatList[entryArr[2]].status === "finished"}
+                                finishTime={finishTime}
                                 staged={true}
                                 key={i} />
                         );

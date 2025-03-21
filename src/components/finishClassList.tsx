@@ -6,7 +6,6 @@ import { RightArrow } from "./icons/rightArrow";
 import { DownArrow } from "./icons/downArrow";
 import { FinishBoatEntry } from "./finishBoatEntry";
 import { SmallTimeDisplay } from "./smallTimeDisplay";
-import { StagingArea } from "./stagingArea";
 
 type FinishClassListProps = {
     raceIdx: number,
@@ -14,7 +13,8 @@ type FinishClassListProps = {
     currentTime: number,
     stageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
     unStageBoat: (raceIdx: number, classIdx: number, boatIdx: number) => void,
-    forceUpdate: () => void
+    forceUpdate: () => void,
+    rando: number
 };
 
 export const FinishClassList: React.FC<FinishClassListProps> = (props: FinishClassListProps) => {
@@ -50,6 +50,10 @@ export const FinishClassList: React.FC<FinishClassListProps> = (props: FinishCla
                             stageBoat={props.stageBoat}
                             unStageBoat={props.unStageBoat}
                             currentTime={props.currentTime}
+                            rando={props.rando}
+                            forceUpdate={props.forceUpdate}
+                            finished={boat.status === "finished"}
+                            finishTime={boat.finishTime ? boat.finishTime : 0}
                             key={i} />;
                     })}
                 </div>}

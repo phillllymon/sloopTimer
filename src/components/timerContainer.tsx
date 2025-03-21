@@ -204,6 +204,7 @@ try {
     timeZone = new Date(Date.now()).toString().split("(")[1].split(")")[0];
 } catch (e) {}
 
+const initialStagedBoats: number[][] = [];
 export const RaceContext = React.createContext({
     raceList: raceList,
     setNewRaceList: (newRaceList: RaceList): void => {}, // overwritten below
@@ -211,11 +212,14 @@ export const RaceContext = React.createContext({
     setRaceIdx: (newIdx: number): void => {}, // overwritten below
     currentTime: Date.now(),
     lastUpdateTime: Date.now(),
-    timeZone: timeZone
+    timeZone: timeZone,
+    stagedBoats: initialStagedBoats,
+    setStagedBoats: (newStagedBoats: number[][]): void => {} // overwritten below
 });
 
 export const TimerContainer: React.FC = () => {
     const [raceListData, setRaceListData] = useState(raceList);
+    const [stagedBoats, setStagedBoats] = useState<number[][]>([]);
     const [raceIdx, setRaceIdx] = useState(-1);
     const [currentTime, setCurrentTime] = useState(Date.now());
     const [lastUpdateTime, setLastUpdateTime] = useState(Date.now());
@@ -246,7 +250,9 @@ export const TimerContainer: React.FC = () => {
             setRaceIdx: setRaceIdx,
             currentTime: currentTime,
             lastUpdateTime: lastUpdateTime,
-            timeZone: timeZone
+            timeZone: timeZone,
+            stagedBoats: stagedBoats,
+            setStagedBoats: setStagedBoats
         }}>
             <div id="full-screen-component">
                 {/* {!fullScreen && <FullScreenPrompt hideModal={() => setFullScreen(true)} />} */}
