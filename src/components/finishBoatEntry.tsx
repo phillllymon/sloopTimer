@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import "./style.css";
 import "./style/finishTab.css";
 import { RaceContext } from "./timerContainer";
+import { UpArrow } from "./icons/upArrow";
+import { DownArrow } from "./icons/downArrow";
 
 type FinishBoatEntryProps = {
     raceIdx: number,
@@ -85,14 +87,27 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
     if (props.staged) {
         return (
             <div className="boat-entry finish-boat-entry stage-boat-entry" onClick={finishBoat}>
-                <div className="vertical">
-    
-                    <div>
-                        {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].name}
+                <div className="horizontal-left">
+
+                    <div className="vertical arrow-button">
+                        <div onClick={() => console.log("up")}>
+                            <UpArrow />
+                        </div>
+                        <div className="vertical-space"></div>
+                        <div onClick={() => console.log("down")}>
+                            <DownArrow />
+                        </div>
                     </div>
-                    <div className="vertical-space"></div>
-                    <div>
-                        {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].sailNumber}
+                    <div className="space"></div>
+                    <div className="vertical">
+        
+                        <div>
+                            {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].name}
+                        </div>
+                        <div className="vertical-space"></div>
+                        <div>
+                            {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].sailNumber}
+                        </div>
                     </div>
                 </div>
                 {boatFinished ? (
@@ -107,11 +122,11 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                 ) : (
                     <div></div>
                 )}
-                    <div className="horizontal-right">
-                        <div className={raceStarted ? "blue-button" : "blue-button inactive"} onClick={unStageBoat}>
-                            Unstage
-                        </div>
+                <div className="horizontal-right">
+                    <div className={raceStarted ? "blue-button" : "blue-button inactive"} onClick={unStageBoat}>
+                        Unstage
                     </div>
+                </div>
             </div>
         );
     }
