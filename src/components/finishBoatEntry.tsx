@@ -70,12 +70,16 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
     };
 
     const stageBoat = () => {
-        props.stageBoat(props.raceIdx, props.classIdx, props.boatIdx);
+        if (raceStarted) {
+            props.stageBoat(props.raceIdx, props.classIdx, props.boatIdx);
+        }
     };
 
     const unStageBoat = (e: any) => {
         e.stopPropagation();
-        props.unStageBoat(props.raceIdx, props.classIdx, props.boatIdx);
+        if (raceStarted) {
+            props.unStageBoat(props.raceIdx, props.classIdx, props.boatIdx);
+        }
     };
 
     if (props.staged) {
