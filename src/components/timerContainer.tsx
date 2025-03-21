@@ -22,79 +22,92 @@ const raceList: RaceList = [
                         name: "Tatonka",
                         sailNumber: "6969",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     }
                 ],
                 startTime: {
@@ -113,13 +126,15 @@ const raceList: RaceList = [
                         name: "Hydra",
                         sailNumber: "1123",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     },
                     {
                         name: "Absolutely",
                         sailNumber: "USA 95",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     }
                 ],
                 startTime: {
@@ -148,7 +163,8 @@ const raceList: RaceList = [
                         name: "Tatonka",
                         sailNumber: "6969",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     }
                 ],
                 startTime: {
@@ -167,7 +183,8 @@ const raceList: RaceList = [
                         name: "Hydra",
                         sailNumber: "1123",
                         status: "waiting",
-                        finishTime: false
+                        finishTime: false,
+                        staged: false
                     }
                 ],
                 startTime: {
