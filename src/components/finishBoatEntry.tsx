@@ -29,13 +29,7 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
 
     const [boatFinished, setBoatFinished] = useState(raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].status === "finished");
 
-    // const boatFinishTime = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime;
     const boatFinishTime = props.finishTime;
-
-    // const [seconds, setSeconds] = useState(boatFinishTime ? (boatFinishTime % 60000) / 1000 : 0);
-    // const [minutes, setMinutes] = useState(boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000) - (Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0);
-    // const [hours, setHours] = useState(boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) : 0);
-    // const [days, setDays] = useState(boatFinishTime ? Math.floor(boatFinishTime / 86400000) : 0);
 
     let seconds = boatFinishTime ? (boatFinishTime % 60000) / 1000 : 0;
     let minutes = boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000) - (Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0;
@@ -98,16 +92,54 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
         }
     };
 
+    const moveUp = (e: any) => {
+        e.stopPropagation();
+        let idx = -1;
+        const stageList = raceContext.stagedBoats;
+        stageList.forEach((entryArr, i) => {
+            if (entryArr[0] === props.raceIdx && entryArr[1] === props.classIdx && entryArr[2] === props.boatIdx) {
+                idx = i;
+            }
+        });
+        if (idx > 0) {
+            const before = stageList.slice(0, idx);
+            const after = stageList.slice(idx + 1, stageList.length);
+            const newAfter = [before.pop()!].concat(after);
+            before.push(stageList[idx]);
+            const newStageList = before.concat(newAfter);
+            raceContext.setStagedBoats(newStageList);
+        }
+    };
+
+    const moveDown = (e: any) => {
+        e.stopPropagation();
+        let idx = -1;
+        const stageList = raceContext.stagedBoats;
+        stageList.forEach((entryArr, i) => {
+            if (entryArr[0] === props.raceIdx && entryArr[1] === props.classIdx && entryArr[2] === props.boatIdx) {
+                idx = i;
+            }
+        });
+        if (idx > -1 && idx < stageList.length - 1) {
+            const before = stageList.slice(0, idx);
+            const after = stageList.slice(idx + 1, stageList.length);
+            const newBefore = before.concat([after.shift()!]);
+            newBefore.push(stageList[idx]);
+            const newStageList = newBefore.concat(after);
+            raceContext.setStagedBoats(newStageList);
+        }
+    };
+
     if (props.staged) {
         return (
             <div className="boat-entry finish-boat-entry stage-boat-entry" onClick={finishBoat}>
                 <div className="horizontal-left">
                     <div className="vertical arrow-button">
-                        <div onClick={() => console.log("up")}>
+                        <div onClick={moveUp}>
                             <UpArrow />
                         </div>
                         <div className="vertical-space"></div>
-                        <div onClick={() => console.log("down")}>
+                        <div onClick={moveDown}>
                             <DownArrow />
                         </div>
                     </div>
