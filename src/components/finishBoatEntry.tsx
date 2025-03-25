@@ -168,8 +168,8 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                     <div></div>
                 )}
                 <div className="horizontal-right">
-                    <div className={raceStarted ? "blue-button" : "blue-button inactive"} onClick={unStageBoat}>
-                        Unstage
+                    <div className="arrow-button background-red" onClick={unStageBoat}>
+                        X
                     </div>
                 </div>
             </div>

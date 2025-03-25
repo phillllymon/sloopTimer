@@ -19,12 +19,10 @@ export const EditBoatModal: React.FC<EditBoatModalProps> = (props: EditBoatModal
     const [notes, setNotes] = useState(boatInfo.notes ? boatInfo.notes : "");
     const handleDone = () => {
         const raceList = raceContext.raceList;
-        raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx] = {
-            name: boatName,
-            sailNumber: sailNumber,
-            phrf: Number.parseFloat(phrf),
-            notes: notes
-        };
+        raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].name = boatName;
+        raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].sailNumber = sailNumber;
+        raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].phrf = Number.parseFloat(phrf);
+        raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].notes = notes;
         raceContext.setNewRaceList(raceList);
         props.hideModal();
     };

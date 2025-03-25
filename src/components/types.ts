@@ -4,7 +4,7 @@ export type Boat = {
     phrf?: number,
     notes?: string,
     status: "waiting" | "early" | "racing" | "finished" | "dnf" | "retired",
-    finishTime: false | number,  // ms timestamp
+    finishTime: false | number,  // ms
     staged: boolean
 };
 
