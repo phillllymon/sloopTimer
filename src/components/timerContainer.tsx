@@ -7,16 +7,16 @@ import { FullScreenPrompt } from "./fullScreenPrompt";
 
 const raceList: RaceList = [
     {
-        name: "DD 6/20",
+        name: "Fancy Race",
         startDay: {
             year: 2025,
             month: 3,
-            day: 8
+            day: 25
         },
         classes: [
             {
-                raceName: "DD 6/20",
-                name: "start 4",
+                raceName: "Fancy Race",
+                name: "slow boats",
                 boatList: [
                     {
                         name: "Tatonka",
@@ -33,78 +33,78 @@ const raceList: RaceList = [
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Kari-J",
+                        sailNumber: "blank",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Boomerang",
+                        sailNumber: "69",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Hula Hula",
+                        sailNumber: "040",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Thundorca",
+                        sailNumber: "394",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Hare",
+                        sailNumber: "8",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Bismark",
+                        sailNumber: "73",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Reliance",
+                        sailNumber: "USA 31",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Australia II",
+                        sailNumber: "AU 83",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Victory",
+                        sailNumber: "1810",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Red October",
+                        sailNumber: "1917",
                         status: "waiting",
                         finishTime: false,
                         staged: false
                     },
                     {
-                        name: "Snow Goose",
-                        sailNumber: "1066",
+                        name: "Mada Hari",
+                        sailNumber: "1945",
                         status: "waiting",
                         finishTime: false,
                         staged: false
@@ -119,8 +119,8 @@ const raceList: RaceList = [
                 overEarly: [],
             },
             {
-                raceName: "DD 6/20",
-                name: "start 1",
+                raceName: "Fancy Race",
+                name: "fast boats",
                 boatList: [
                     {
                         name: "Hydra",
@@ -132,6 +132,13 @@ const raceList: RaceList = [
                     {
                         name: "Absolutely",
                         sailNumber: "USA 95",
+                        status: "waiting",
+                        finishTime: false,
+                        staged: false
+                    },
+                    {
+                        name: "Enterprise",
+                        sailNumber: "6969",
                         status: "waiting",
                         finishTime: false,
                         staged: false
@@ -148,7 +155,7 @@ const raceList: RaceList = [
         ]
     },
     {
-        name: "DD 6/27",
+        name: "Duck Dodge",
         startDay: {
             year: 2025,
             month: 3,
@@ -156,7 +163,7 @@ const raceList: RaceList = [
         },
         classes: [
             {
-                raceName: "DD 6/27",
+                raceName: "Duck Dodge",
                 name: "start 4",
                 boatList: [
                     {
@@ -176,7 +183,7 @@ const raceList: RaceList = [
                 overEarly: [],
             },
             {
-                raceName: "DD 6/27",
+                raceName: "Duck Dodge",
                 name: "start 1",
                 boatList: [
                     {

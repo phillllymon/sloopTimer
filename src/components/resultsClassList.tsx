@@ -5,7 +5,6 @@ import { RaceContext } from "./timerContainer";
 import { RightArrow } from "./icons/rightArrow";
 import { DownArrow } from "./icons/downArrow";
 import { ResultsBoatEntry } from "./resultsBoatEntry";
-import { SmallTimeDisplay } from "./smallTimeDisplay";
 
 type ResultsClassListProps = {
     raceIdx: number,
@@ -23,6 +22,14 @@ export const ResultsClassList: React.FC<ResultsClassListProps> = (props: Results
         setExpanded(expanded ? false : true);
     }
     const raceContext = useContext(RaceContext);
+    const boats = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList;
+    const numBoats = boats.length;
+    let numFinished = 0;
+    raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList.forEach((boat) => {
+        if (boat.finishTime) {
+            numFinished += 1;
+        }
+    });
     
     return (
         <>
@@ -38,7 +45,7 @@ export const ResultsClassList: React.FC<ResultsClassListProps> = (props: Results
                     </div>
                     <div className="vertical">
                         <div>
-                            12 / 24
+                            {numFinished} / {numBoats}
                         </div>
                         <div className="gray-text small-text">
                             finished
