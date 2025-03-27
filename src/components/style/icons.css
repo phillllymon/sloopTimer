@@ -67,6 +67,18 @@
     /* width: 100%; */
     /* border: 2px solid red; */
     box-sizing: border-box;
+    font-size: 2vh;
+}
+
+.green-check {
+    position: absolute;
+    left: -1.5vh;
+    top: -1.5vh;
+    height: 2vh;
+    width: 3vh;
+    border-left: 0.25vh solid green;
+    border-bottom: 0.6vh solid green;
+    box-sizing: border-box;
 }
 
 /* boats icon */

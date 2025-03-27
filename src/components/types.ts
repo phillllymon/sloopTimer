@@ -3,6 +3,7 @@ export type Boat = {
     sailNumber?: string
     phrf?: number,
     notes?: string,
+    boatType?: string,
     status: "waiting" | "early" | "racing" | "finished" | "dnf" | "retired",
     finishTime: false | number,  // ms
     staged: boolean

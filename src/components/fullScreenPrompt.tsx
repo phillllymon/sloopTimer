@@ -15,9 +15,15 @@ export const FullScreenPrompt: React.FC<FullScreenPromptProps> = (props: FullScr
         <>
             <div className="modal-screen"></div>
             <div className="modal">
+                <br/>
+                <br/>
                 <div className="blue-button" onClick={handleFullScreen}>
+
                     Full screen preview
+
                 </div>
+                <br/>
+                <br/>
             </div>
         </>
     );

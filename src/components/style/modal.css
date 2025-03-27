@@ -73,6 +73,10 @@
     width: 96%;
 }
 
+.new-race-input {
+    width: 80%;
+}
+
 .modal-content {
     max-height: 60vh;
     overflow-y: auto;
