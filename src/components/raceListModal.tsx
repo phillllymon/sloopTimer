@@ -4,6 +4,8 @@ import "./style/modal.css";
 import { RaceContext } from "./timerContainer";
 import { UploadInfoArea } from "./uploadInfoArea";
 
+import type { BoatClass } from "./types";
+
 type RaceListModalProps = {
     hideModal: () => void
 }
@@ -13,16 +15,25 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
 
     const [newRaceAreaOpen, setNewRaceAreaOpen] = useState(false);
     const [uploadAreaOpen, setUploadAreaOpen] = useState(false);
+
+    const [boatsArr, setBoatsArr] = useState<Record<string, string>[]>([]);
+    const [nameError, setNameError] = useState("");
+
     const handleSelectRace = (idx: number): void => {
         raceContext.setRaceIdx(idx);
         props.hideModal();
     };
 
-    const handleAddNewRace = () => {
+    const handleCreateRace = () => {
         const newRaceName = (document.getElementById("new-race-name") as HTMLInputElement).value;
         if (newRaceName.length > 0) {
             const raceList = raceContext.raceList;
             const today = new Date(Date.now());
+            let classes: BoatClass[] = [];
+            if (boatsArr.length > 0) {
+                classes = parseBoatsArrToClasses(boatsArr, newRaceName);
+                console.log(classes);
+            }
             const newRace = {
                 name: newRaceName,
                 startDay: {
@@ -30,21 +41,20 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
                     month: today.getMonth() + 1,
                     day: today.getDate()
                 },
-                classes: [],
+                classes: classes,
             };
             raceList.push(newRace);
             raceContext.setNewRaceList(raceList);
             raceContext.setRaceIdx(raceList.length - 1);
             props.hideModal();
+        } else {
+            setNameError("Enter race name");
         }
     };
 
-    const setRaceInfo = (boatsArr: Record<string, string>[]): void => {
-        console.log(boatsArr.length + " boats set");
-        // TODO!!!!!
-        // START HERE!!!!!!!
-        // set the boatsArr here and then use it to determine what happens when "Create race" button is pushed
-    }
+    const setRaceInfo = (newBoatsArr: Record<string, string>[]): void => {
+        setBoatsArr(newBoatsArr);
+    };
     return (
         <>
             <div className="modal-screen" onClick={props.hideModal}></div>
@@ -61,7 +71,8 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
                         <br/>
                         {uploadAreaOpen ? (
                             <UploadInfoArea
-                                setRaceInfo={setRaceInfo} />
+                                setRaceInfo={setRaceInfo}
+                                nameError={nameError} />
                         ) : (
                             <div className="blue-button" onClick={() => setUploadAreaOpen(true)}>
                                 Upload csv
@@ -69,7 +80,7 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
                         )}
                         <div
                             className="blue-button modal-list-button"
-                            onClick={() => console.log("create race")}>
+                            onClick={handleCreateRace}>
                             Create race
                         </div>
                     </>
@@ -96,3 +107,38 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
         </>
     );
 };
+
+function parseBoatsArrToClasses(boatsArr: Record<string, string>[], newRaceName: string): BoatClass[] {
+    const classesObj: Record<string, BoatClass> = {};
+    boatsArr.forEach((boatEntry) => {
+        const className = boatEntry.boatClass;
+        if (boatEntry.name && boatEntry.name.length > 0) {
+            if (!classesObj[className]) {
+                classesObj[className] = {
+                    raceName: newRaceName,
+                    name: className,
+                    boatList: [],
+                    startTime: {
+                        hours: 12,
+                        minutes: 0,
+                        seconds: 0
+                    },
+                    cleared: false,
+                    overEarly: []
+                };
+            }
+            classesObj[className].boatList.push({
+                name: boatEntry.name,
+                sailNumber: boatEntry.sailNumber,
+                boatType: boatEntry.boatType,
+                phrf: Number.parseFloat(boatEntry.phrf),
+                status: "signedUp",
+                finishTime: false,
+                staged: false
+            });
+        }
+    });
+    return Object.keys(classesObj).map((className) => {
+        return classesObj[className];
+    });
+}

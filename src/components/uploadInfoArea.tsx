@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { ValueField } from "./valueField";
 
 type UploadInfoAreaProps = {
-    setRaceInfo: (boatsArr: Record<string, string>[]) => void
+    setRaceInfo: (boatsArr: Record<string, string>[]) => void,
+    nameError: string
 };
 
 export const UploadInfoArea: React.FC<UploadInfoAreaProps> = (props: UploadInfoAreaProps) => {
@@ -44,6 +45,11 @@ export const UploadInfoArea: React.FC<UploadInfoAreaProps> = (props: UploadInfoA
 
     useEffect(checkForEssentialValues, [boatsArr]);
     useEffect(redoBoatsArr, [boatNameLabel, classLabel, sailNumberLabel, boatTypeLabel, phrfLabel]);
+    useEffect(() => {
+        if (props.nameError.length > 0) {
+            setErrorMessage(props.nameError);
+        }
+    }, [props.nameError]);
 
     const handleUpload = (e: any): void => {
         const file = e.target.files[0];
@@ -61,12 +67,15 @@ export const UploadInfoArea: React.FC<UploadInfoAreaProps> = (props: UploadInfoA
             });
             setBoatsArr(boatsArr);
         };
-        reader.readAsBinaryString(file);
+        try {
+            reader.readAsBinaryString(file);
+        } catch (e) {
+            
+        }
     };
 
     const handleLabelChange = (newLabel: string, setter: (s: string) => void) => {
         setter(newLabel);
-        console.log(newLabel);
     };
 
     return (

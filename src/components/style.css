@@ -88,6 +88,10 @@
     justify-content: flex-end;
 }
 
+.wide {
+    width: 100%;
+}
+
 .horizontal-between {
     display: flex;
     flex-direction: row;

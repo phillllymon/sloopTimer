@@ -37,7 +37,7 @@ export const NewBoatModal: React.FC<NewBoatModalProps> = (props: NewBoatModalPro
     };
     return (
         <>
-            <div className="modal-screen" onClick={props.hideModal}></div>
+            <div className="super-modal-screen" onClick={props.hideModal}></div>
             <div className="modal new-boat-modal">
                 New boat info:
                 <input

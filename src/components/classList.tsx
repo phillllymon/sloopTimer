@@ -31,6 +31,7 @@ export const ClassList: React.FC<ClassListProps> = (props: ClassListProps) => {
                 raceIdx={props.raceIdx}
                 classIdx={props.classIdx}
                 forceUpdate={props.forceUpdate}
+                openNewBoatModal={() => setNewBoatModalOpen(true)}
                 />}
             {newBoatModalOpen && <NewBoatModal 
                 hideModal={() => setNewBoatModalOpen(false)}
@@ -52,9 +53,6 @@ export const ClassList: React.FC<ClassListProps> = (props: ClassListProps) => {
                             <Edit />
                         </div>
                         <div className="space">
-                        </div>
-                        <div className="blue-button" onClick={() => setNewBoatModalOpen(true)}>
-                            + Boat
                         </div>
                     </div>
                 </div>

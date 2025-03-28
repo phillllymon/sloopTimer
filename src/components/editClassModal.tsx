@@ -7,6 +7,7 @@ type NewBoatModalProps = {
     hideModal: () => void,
     raceIdx: number,
     classIdx: number,
+    openNewBoatModal: () => void,
     forceUpdate: () => void
 }
 
@@ -41,11 +42,22 @@ export const EditClassModal: React.FC<NewBoatModalProps> = (props: NewBoatModalP
         props.forceUpdate();
         props.hideModal();
     };
+    const handleOpenNewBoatModal = () => {
+        props.openNewBoatModal();
+    };
     
     return (
         <>
             <div className="modal-screen" onClick={saveNameChangeAndCloseModal}></div>
-            <div className="modal new-boat-modal">
+            <div className="modal edit-class-modal">
+                <div className="horizontal-right wide">
+                    <div className="blue-button" onClick={handleOpenNewBoatModal}>
+                        + Boat
+                    </div>
+                </div>
+                <div className="gray-text small-text">
+                    Class name
+                </div>
                 <div className="horizontal-between">
                     <input
                         type="text"
@@ -54,9 +66,6 @@ export const EditClassModal: React.FC<NewBoatModalProps> = (props: NewBoatModalP
                         value={className}
                         onChange={(e) => setClassName(e.target.value)}>
                     </input>
-                    <div className="blue-button" onClick={saveNameChangeAndCloseModal}>
-                        Done
-                    </div>
                 </div>
                 <div className="class-list modal-content">
                     {props.raceIdx > -1 && raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList.map((boat, i) => {
@@ -69,6 +78,9 @@ export const EditClassModal: React.FC<NewBoatModalProps> = (props: NewBoatModalP
                             </div>
                         ) 
                     })}
+                </div>
+                <div className="small-text">
+                    <br />
                 </div>
                 <div className="horizontal-between">
 

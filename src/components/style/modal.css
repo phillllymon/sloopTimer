@@ -8,6 +8,16 @@
     z-index: 1;
 }
 
+.super-modal-screen {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(50, 50, 50, 0.7);
+    z-index: 3;
+}
+
 .modal {
     position: fixed;
     left: 50%;
@@ -58,6 +68,15 @@
     font-size: 6vw;
     color: lightgray;
     font-family: sans-serif;
+    z-index: 4;
+}
+
+.edit-class-modal {
+    padding: 2vw;
+    font-size: 6vw;
+    color: lightgray;
+    font-family: sans-serif;
+    z-index: 2;
 }
 
 .new-boat-input {
@@ -75,6 +94,10 @@
 
 .new-race-input {
     width: 80%;
+}
+
+.new-boat-button {
+    width: 15vh;
 }
 
 .modal-content {
