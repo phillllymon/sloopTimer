@@ -3,6 +3,7 @@ import "./style.css";
 import { RaceContext } from "./timerContainer";
 import { FinishClassList } from "./finishClassList";
 import { StagingArea } from "./stagingArea";
+import { FinishAllBoats } from "./finishAllBoats";
 
 export const FinishTab: React.FC = () => {
 
@@ -64,19 +65,28 @@ export const FinishTab: React.FC = () => {
                 stageBoat={stageBoat}
                 unStageBoat={unStageBoat} />
             <div className="scroll-section">
-                {raceContext.raceIdx > -1 && raceContext.raceList[raceContext.raceIdx].classes.map((boatClass, i) => {
-                    return (
-                        <FinishClassList
-                            raceIdx={raceContext.raceIdx}
-                            classIdx={i}
-                            forceUpdate={forceUpdate}
-                            rando={rando}
-                            currentTime={currentTime}
-                            stageBoat={stageBoat}
-                            unStageBoat={unStageBoat}
-                            key={i} />
-                    )
-                })}
+                <center>
+                    <FinishAllBoats
+                        raceIdx={raceContext.raceIdx}
+                        forceUpdate={forceUpdate}
+                        rando={rando}
+                        currentTime={currentTime}
+                        stageBoat={stageBoat}
+                        unStageBoat={unStageBoat} />
+                    {raceContext.raceIdx > -1 && raceContext.raceList[raceContext.raceIdx].classes.map((boatClass, i) => {
+                        return (
+                            <FinishClassList
+                                raceIdx={raceContext.raceIdx}
+                                classIdx={i}
+                                forceUpdate={forceUpdate}
+                                rando={rando}
+                                currentTime={currentTime}
+                                stageBoat={stageBoat}
+                                unStageBoat={unStageBoat}
+                                key={i} />
+                        )
+                    })}
+                </center>
             </div>
         </div>
     );

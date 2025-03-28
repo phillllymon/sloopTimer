@@ -6,7 +6,9 @@ export type Boat = {
     boatType?: string,
     status: "signedUp" | "waiting" | "early" | "racing" | "finished" | "dnf" | "retired",
     finishTime: false | number,  // ms
-    staged: boolean
+    staged: boolean,
+    classIdx?: number,
+    boatIdx?: number
 };
 
 export type StartTime = {

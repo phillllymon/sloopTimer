@@ -57,19 +57,21 @@ export const ResultsTab: React.FC = () => {
     return (
         <div className="page finish-page">
             <div className="scroll-section">
-                {raceContext.raceIdx > -1 && raceContext.raceList[raceContext.raceIdx].classes.map((boatClass, i) => {
-                    return (
-                        <ResultsClassList
-                            raceIdx={raceContext.raceIdx}
-                            classIdx={i}
-                            forceUpdate={forceUpdate}
-                            rando={rando}
-                            currentTime={currentTime}
-                            stageBoat={stageBoat}
-                            unStageBoat={unStageBoat}
-                            key={i} />
-                    )
-                })}
+                <center>
+                    {raceContext.raceIdx > -1 && raceContext.raceList[raceContext.raceIdx].classes.map((boatClass, i) => {
+                        return (
+                            <ResultsClassList
+                                raceIdx={raceContext.raceIdx}
+                                classIdx={i}
+                                forceUpdate={forceUpdate}
+                                rando={rando}
+                                currentTime={currentTime}
+                                stageBoat={stageBoat}
+                                unStageBoat={unStageBoat}
+                                key={i} />
+                        )
+                    })}
+                </center>
             </div>
         </div>
     );
