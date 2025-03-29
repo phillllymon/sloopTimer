@@ -25,6 +25,7 @@ export const FinishAllBoats: React.FC<FinishAllBoatsProps> = (props: FinishAllBo
     const raceContext = useContext(RaceContext);
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [searchParam, setSearchParam] = useState<"name" | "sailNumber" | "boatType">("name");
     const [boats, setBoats] = useState<Boat[]>([]);
 
     const getAllBoats = (): Boat[] => {
@@ -47,7 +48,9 @@ export const FinishAllBoats: React.FC<FinishAllBoatsProps> = (props: FinishAllBo
         if (props.raceIdx > -1) {
             const allBoats = getAllBoats();
             allBoats.sort((a, b) => {
-                if (a.name > b.name) {
+                const aParam = a[searchParam] ? a[searchParam] : "";
+                const bParam = b[searchParam] ? b[searchParam] : "";
+                if (aParam! > bParam!) {
                     return 1;
                 } else {
                     return -1;
@@ -61,12 +64,15 @@ export const FinishAllBoats: React.FC<FinishAllBoatsProps> = (props: FinishAllBo
         const allBoats = getAllBoats();
         const filteredBoats: Boat[] = [];
         allBoats.forEach((boat) => {
-            if (boat.name.toLowerCase().startsWith(searchTerm.toLowerCase())) {
+            const boatProperty = boat[searchParam] ? boat[searchParam] : "";
+            if (boatProperty!.toLowerCase().startsWith(searchTerm.toLowerCase())) {
                 filteredBoats.push(boat);
             }
         });
         filteredBoats.sort((a, b) => {
-            if (a.name > b.name) {
+            const aParam = a[searchParam] ? a[searchParam] : "";
+            const bParam = b[searchParam] ? b[searchParam] : "";
+            if (aParam! > bParam!) {
                 return 1;
             } else {
                 return -1;
@@ -75,7 +81,7 @@ export const FinishAllBoats: React.FC<FinishAllBoatsProps> = (props: FinishAllBo
         setBoats(filteredBoats);
     };
 
-    useEffect(filterBoats, [searchTerm]);
+    useEffect(filterBoats, [searchTerm, searchParam]);
     useEffect(setAllBoats, [props.raceIdx]);
     
     
@@ -92,10 +98,28 @@ export const FinishAllBoats: React.FC<FinishAllBoatsProps> = (props: FinishAllBo
                         </div>
                     </div>
                     <SearchBar
-                        placeholderText="search"
+                        searchParam={searchParam}
                         setSearchTerm={setSearchTerm} />
                 </div>
                 {expanded && <div>
+                    <div className="vertical-space"></div>
+                    <div className="horizontal-around">
+                        <div 
+                            className={searchParam === "name" ? "arrow-button small-text selected-button" : "arrow-button small-text"}
+                            onClick={() => setSearchParam("name")}>
+                            Boat name
+                        </div>
+                        <div 
+                            className={searchParam === "sailNumber" ? "arrow-button small-text selected-button" : "arrow-button small-text"}
+                            onClick={() => setSearchParam("sailNumber")}>
+                            Sail number
+                        </div>
+                        <div 
+                            className={searchParam === "boatType" ? "arrow-button small-text selected-button" : "arrow-button small-text"}
+                            onClick={() => setSearchParam("boatType")}>
+                            Boat type
+                        </div>
+                    </div>
                     {boats.map((boat, i) => {
                         return <FinishBoatEntry 
                             raceIdx={props.raceIdx}
