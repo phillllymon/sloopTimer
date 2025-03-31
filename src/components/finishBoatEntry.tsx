@@ -130,6 +130,11 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
         }
     };
 
+    const editFinish = (): void => {
+        // START HERE!!!!!!!!!
+        console.log("EDIT FINISH");
+    };
+
     if (props.staged) {
         return (
             <div className="boat-entry finish-boat-entry stage-boat-entry" onClick={finishBoat}>
@@ -178,40 +183,55 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
 
     return (
         <div className="boat-entry finish-boat-entry">
-            <div className="vertical">
+            <div className="vertical-left">
                 <div>
                     {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].name}
                 </div>
                 <div className="vertical-space"></div>
+                <div className="text-gray">
+                    {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].boatType}
+                </div>
+            </div>
+            <div className="vertical-center">
                 <div>
                     {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].sailNumber}
                 </div>
-            </div>
-            {props.finished ? (
-                <div className="vertical">
-                    <div className="gray-text small-text">
-                        Finish time:
-                    </div>
+                {props.finished ? (
                     <div className="green-text">
                         {days > 0 ? `${days} ${days > 1 ? "days" : "day"} + ${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}` : `${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}`}
                     </div>
-                </div>
-            ) : (
-                <div className="horizontal-right">
-                    {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].staged ? (
-                        <div className={raceStarted ? "blue-button" : "blue-button inactive"} onClick={unStageBoat}>
-                            Unstage
+                ) : (
+                    <div>
+                        {""}
+                    </div>
+                )}
+            </div>
+            <div className="horizontal-right">
+                {!props.finished && (
+                    (
+                        <div>
+                            {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].staged ? (
+                                <div className={raceStarted ? "blue-button" : "blue-button inactive"} onClick={unStageBoat}>
+                                    Unstage
+                                </div>
+                            ) : (
+                                <div className={raceStarted ? "blue-button" : "blue-button inactive"} onClick={stageBoat}>
+                                    Stage
+                                </div>
+                            )}
                         </div>
-                    ) : (
-                        <div className={raceStarted ? "blue-button" : "blue-button inactive"} onClick={stageBoat}>
-                            Stage
-                        </div>
-                    )}
+                    )
+                )}
+                {props.finished ? (
+                    <div className={raceStarted ? "blue-button orange-button" : "blue-button orange-button inactive"} onClick={editFinish}>
+                        Edit
+                    </div>
+                ) : (
                     <div className={raceStarted ? "blue-button orange-button" : "blue-button orange-button inactive"} onClick={finishBoat}>
                         Finish
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 };

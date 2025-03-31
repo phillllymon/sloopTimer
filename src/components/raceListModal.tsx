@@ -32,7 +32,6 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
             let classes: BoatClass[] = [];
             if (boatsArr.length > 0) {
                 classes = parseBoatsArrToClasses(boatsArr, newRaceName);
-                console.log(classes);
             }
             const newRace = {
                 name: newRaceName,
@@ -132,7 +131,7 @@ function parseBoatsArrToClasses(boatsArr: Record<string, string>[], newRaceName:
                 sailNumber: boatEntry.sailNumber,
                 boatType: boatEntry.boatType,
                 phrf: Number.parseFloat(boatEntry.phrf),
-                status: "signedUp",
+                status: "signed up",
                 finishTime: false,
                 staged: false
             });

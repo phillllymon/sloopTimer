@@ -21,93 +21,106 @@ const raceList: RaceList = [
                     {
                         name: "Tatonka",
                         sailNumber: "6969",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Snow Goose",
                         sailNumber: "1066",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Kari-J",
                         sailNumber: "blank",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Boomerang",
                         sailNumber: "69",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Hula Hula",
                         sailNumber: "040",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Thundorca",
                         sailNumber: "394",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Hare",
                         sailNumber: "8",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Bismark",
                         sailNumber: "73",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Reliance",
                         sailNumber: "USA 31",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Australia II",
                         sailNumber: "AU 83",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Victory",
                         sailNumber: "1810",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Red October",
                         sailNumber: "1917",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Mada Hari",
                         sailNumber: "1945",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     }
                 ],
                 startTime: {
@@ -125,23 +138,26 @@ const raceList: RaceList = [
                     {
                         name: "Hydra",
                         sailNumber: "1123",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Absolutely",
                         sailNumber: "USA 95",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     },
                     {
                         name: "Enterprise",
                         sailNumber: "6969",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
-                        staged: false
+                        staged: false,
+                        boatType: "J 24"
                     }
                 ],
                 startTime: {
@@ -169,7 +185,7 @@ const raceList: RaceList = [
                     {
                         name: "Tatonka",
                         sailNumber: "6969",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
                         staged: false
                     }
@@ -189,7 +205,7 @@ const raceList: RaceList = [
                     {
                         name: "Hydra",
                         sailNumber: "1123",
-                        status: "waiting",
+                        status: "signed up",
                         finishTime: false,
                         staged: false
                     }

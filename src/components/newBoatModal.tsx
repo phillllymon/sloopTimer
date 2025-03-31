@@ -23,7 +23,7 @@ export const NewBoatModal: React.FC<NewBoatModalProps> = (props: NewBoatModalPro
                 sailNumber: newSailNumber,
                 phrf: newPhrf ? Number.parseFloat(newPhrf) : 0,
                 notes: newNotes,
-                status: "waiting",
+                status: "signed up",
                 finishTime: false,
                 staged: false
             });

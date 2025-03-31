@@ -8,12 +8,21 @@ import { EditBoatModal } from "./editBoatModal";
 type BoatEntryProps = {
     raceIdx: number,
     classIdx: number,
-    boatIdx: number
+    boatIdx: number,
+    rando: number,
+    forceUpdate: () => void
 };
 
 export const BoatEntry: React.FC<BoatEntryProps> = (props: BoatEntryProps) => {
     const [editBoatModalOpen, setEditBoatModalOpen] = useState(false);
     const raceContext = useContext(RaceContext);
+    const boat = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx];
+    const checkBoatIn = () => {
+        const raceList = raceContext.raceList;
+        raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].status = "checked in";
+        raceContext.setNewRaceList(raceList);
+        props.forceUpdate();
+    };
     return (
         <>
             {editBoatModalOpen && <EditBoatModal 
@@ -22,15 +31,34 @@ export const BoatEntry: React.FC<BoatEntryProps> = (props: BoatEntryProps) => {
             classIdx={props.classIdx}
             boatIdx={props.boatIdx}/>}
             <div className="boat-entry">
-                <div>
-                    {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].name}
+                <div className="horizontal-left">
+                    <div onClick={() => setEditBoatModalOpen(true)}>
+                        <Edit />
+                    </div>
+                    <div className="space"></div>
+                    <div className="space"></div>
+                    <div className="vertical-left">
+                        <div>
+                            {boat.name}
+                        </div>
+                        <div className="vertical-space"></div>
+                        <div className="text-gray">
+                            {boat.boatType}
+                        </div>
+                    </div>
                 </div>
                 <div>
-                    {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].sailNumber}
+                    {boat.sailNumber}
                 </div>
-                <div onClick={() => setEditBoatModalOpen(true)}>
-                    <Edit />
-                </div>
+                {boat.status === "signed up" ? (
+                    <div className="blue-button" onClick={checkBoatIn}>
+                        Check in
+                    </div>
+                ) : (
+                    <div>
+                        {boat.status}
+                    </div>
+                )}
             </div>
         </>
     );

@@ -123,6 +123,13 @@
     justify-content: center;
 }
 
+.vertical-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
 .vertical-space {
     height: 1vw;
 }
@@ -180,6 +187,14 @@
 
 .text-black {
     color: black;
+}
+
+.text-gray {
+    color: gray;
+}
+
+.text-small {
+    font-size: 2vh;
 }
 
 .selected-button {

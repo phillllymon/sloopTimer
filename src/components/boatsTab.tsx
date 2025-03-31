@@ -3,6 +3,7 @@ import "./style.css";
 import "./style/boatsTab.css";
 import { RaceContext } from "./timerContainer";
 import { ClassList } from "./classList";
+import { BoatsAllBoats } from "./boatsAllBoats";
 
 export const BoatsTab: React.FC = () => {
     const raceContext = useContext(RaceContext);
@@ -19,7 +20,12 @@ export const BoatsTab: React.FC = () => {
                 name: newClassName,
                 boatList: [],
                 cleared: false,
-                overEarly: []
+                overEarly: [],
+                startTime: {
+                    hours: 12,
+                    minutes: 0,
+                    seconds: 0
+                }
             });
             raceContext.setNewRaceList(raceList);
             setRando(Math.random());    // force rerender - see above
@@ -29,12 +35,17 @@ export const BoatsTab: React.FC = () => {
     
     return (
         <div className="page">
+            <BoatsAllBoats
+                raceIdx={raceContext.raceIdx}
+                forceUpdate={forceUpdate}
+                rando={rando} />
             {raceContext.raceIdx > -1 && raceContext.raceList[raceContext.raceIdx].classes.map((boatClass, i) => {
                 return (
                     <ClassList
                         raceIdx={raceContext.raceIdx}
                         classIdx={i}
                         forceUpdate={forceUpdate}
+                        rando={rando}
                         key={i} />
                 )
             })}

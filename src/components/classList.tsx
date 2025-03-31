@@ -12,7 +12,8 @@ import { EditClassModal } from "./editClassModal";
 type ClassListProps = {
     raceIdx: number,
     classIdx: number,
-    forceUpdate: () => void
+    forceUpdate: () => void,
+    rando: number
 };
 
 export const ClassList: React.FC<ClassListProps> = (props: ClassListProps) => {
@@ -62,6 +63,8 @@ export const ClassList: React.FC<ClassListProps> = (props: ClassListProps) => {
                             raceIdx={props.raceIdx}
                             classIdx={props.classIdx}
                             boatIdx={i}
+                            rando={props.rando}
+                            forceUpdate={props.forceUpdate}
                             key={i} />;
                     })}
                 </div>}
