@@ -201,3 +201,12 @@
     background-color: orange;
     color: black;
 }
+
+.vertical-limit-size {
+    max-height: 60vh;
+    overflow: auto;
+}
+
+.check-checkbox {
+    transform: scale(1.4);
+}

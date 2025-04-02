@@ -4,6 +4,7 @@ import "./style/finishTab.css";
 import { RaceContext } from "./timerContainer";
 import { UpArrow } from "./icons/upArrow";
 import { DownArrow } from "./icons/downArrow";
+import { EditFinishModal } from "./editFinishModal";
 
 type FinishBoatEntryProps = {
     raceIdx: number,
@@ -30,13 +31,20 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
     const [boatFinished, setBoatFinished] = useState(raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].status === "finished");
 
     const boatFinishTime = props.finishTime;
+    const finishDateObj = new Date(boatFinishTime);
+    let seconds = finishDateObj.getSeconds();
+    let minutes = finishDateObj.getMinutes();
+    let hours = finishDateObj.getHours();
 
-    let seconds = boatFinishTime ? (boatFinishTime % 60000) / 1000 : 0;
-    let minutes = boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000) - (Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0;
-    let hours = boatFinishTime ? Math.floor((boatFinishTime - (Math.floor(boatFinishTime / 86400000) * 86400000)) / 3600000) : 0;
-    let days = boatFinishTime ? Math.floor(boatFinishTime / 86400000) : 0;
+    let dateDisplay: string | false = false;
+    const todayDateObj = new Date(Date.now());
+    if (todayDateObj.getFullYear() !== finishDateObj.getFullYear() || todayDateObj.getDate() !== finishDateObj.getDate() || todayDateObj.getMonth() !== finishDateObj.getMonth()) {
+        // dateDisplay = finishDateObj.toISOString().split("T")[0];
+        dateDisplay = finishDateObj.toLocaleDateString();
+    }
 
     const [currentTimeUpdateTimestamp, setCurrentTimeUpdateTimestamp] = useState<false | number>(false);
+    const [editFinishModalOpen, setEditFinishModalOpen] = useState(false);
 
     useEffect(() => {
         setCurrentTimeUpdateTimestamp(Date.now());
@@ -45,34 +53,48 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
     const finishBoat = () => {
         if (raceStarted) {
             if (raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].status === "finished") {
-                const boatTime = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime;
-                if (boatTime) {
+                const boatFinishTime = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime;
+                if (boatFinishTime) {
+                    const finishDateObj = new Date(boatFinishTime);
+                    seconds = finishDateObj.getSeconds();
+                    minutes = finishDateObj.getMinutes();
+                    hours = finishDateObj.getHours();
+                    const todayDateObj = new Date(Date.now());
+                    if (todayDateObj.getFullYear() !== finishDateObj.getFullYear() || todayDateObj.getDate() !== finishDateObj.getDate() || todayDateObj.getMonth() !== finishDateObj.getMonth()) {
+                        // dateDisplay = finishDateObj.toISOString().split("T")[0];
+                        dateDisplay = finishDateObj.toLocaleDateString();
+                    }
 
-                    seconds = boatTime ? (boatTime % 60000) / 1000 : 0;
-                    minutes = boatTime ? Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000) - (Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0;
-                    hours = boatTime ? Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) : 0;
-                    days = boatTime ? Math.floor(boatTime / 86400000) : 0;
                     setBoatFinished(true);
                 }
             } else {
-                const startDate = raceContext.raceList[props.raceIdx].startDay;
-                const startTime = raceContext.raceList[props.raceIdx].classes[props.classIdx].startTime;
-                const startTimeDateObj = new Date(startDate.year, startDate.month - 1, startDate.day, startTime.hours, startTime.minutes, startTime.seconds);
-                const startTimeMs = startTimeDateObj.getTime();
-                let boatTime = props.currentTime - startTimeMs;
+                let boatFinishTime = props.currentTime;
                 if (currentTimeUpdateTimestamp) {
-                    boatTime += (Date.now() - currentTimeUpdateTimestamp);
+                    boatFinishTime += (Date.now() - currentTimeUpdateTimestamp);
                 }
                 const raceList = raceContext.raceList;
 
-                raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime = boatTime;
+                raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].finishTime = boatFinishTime;
                 raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].status = "finished";
+                if (!raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].listedFinishTimes) {
+                    raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].listedFinishTimes = [];
+                }
+                raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].listedFinishTimes!.push(boatFinishTime);
+                if (raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].listedFinishTimes!.length > 5) {
+                    raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].listedFinishTimes!.shift();
+                }
                 raceContext.setNewRaceList(raceList);
 
-                seconds = boatTime ? (boatTime % 60000) / 1000 : 0;
-                minutes = boatTime ? Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000) - (Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) * 3600000)) / 60000) : 0;
-                hours = boatTime ? Math.floor((boatTime - (Math.floor(boatTime / 86400000) * 86400000)) / 3600000) : 0;
-                days = boatTime ? Math.floor(boatTime / 86400000) : 0;
+                const finishDateObj = new Date(boatFinishTime);
+                seconds = finishDateObj.getSeconds();
+                minutes = finishDateObj.getMinutes();
+                hours = finishDateObj.getHours();
+                const todayDateObj = new Date(Date.now());
+                if (todayDateObj.getFullYear() !== finishDateObj.getFullYear() || todayDateObj.getDate() !== finishDateObj.getDate() || todayDateObj.getMonth() !== finishDateObj.getMonth()) {
+                    // dateDisplay = finishDateObj.toISOString().split("T")[0];
+                    dateDisplay = finishDateObj.toLocaleDateString();
+                }
+
                 setBoatFinished(true);
             }
         }
@@ -131,13 +153,18 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
     };
 
     const editFinish = (): void => {
-        // START HERE!!!!!!!!!
-        console.log("EDIT FINISH");
+        setEditFinishModalOpen(true);
     };
 
     if (props.staged) {
         return (
             <div className="boat-entry finish-boat-entry stage-boat-entry" onClick={finishBoat}>
+                {editFinishModalOpen && <EditFinishModal
+                    hideModal={() => setEditFinishModalOpen(false)}
+                    raceIdx={props.raceIdx}
+                    classIdx={props.classIdx}
+                    boatIdx={props.boatIdx}
+                    forceUpdate={props.forceUpdate} />}
                 <div className="horizontal-left">
                     <div className="vertical arrow-button">
                         <div onClick={moveUp}>
@@ -166,12 +193,15 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                             Finish time:
                         </div>
                         <div className="green-text">
-                            {days > 0 ? `${days} ${days > 1 ? "days" : "day"} + ${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}` : `${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}`}
+                            {dateDisplay ? `${dateDisplay} - ${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}` : `${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}`}
                         </div>
                     </div>
                 ) : (
                     <div></div>
                 )}
+                {props.finished && <div className={raceStarted ? "blue-button orange-button" : "blue-button orange-button inactive"} onClick={editFinish}>
+                    Edit
+                </div>}
                 <div className="horizontal-right">
                     <div className="arrow-button background-red" onClick={unStageBoat}>
                         X
@@ -183,6 +213,12 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
 
     return (
         <div className="boat-entry finish-boat-entry">
+            {editFinishModalOpen && <EditFinishModal
+                hideModal={() => setEditFinishModalOpen(false)}
+                raceIdx={props.raceIdx}
+                classIdx={props.classIdx}
+                boatIdx={props.boatIdx}
+                forceUpdate={props.forceUpdate} />}
             <div className="vertical-left">
                 <div>
                     {raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList[props.boatIdx].name}
@@ -198,7 +234,7 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                 </div>
                 {props.finished ? (
                     <div className="green-text">
-                        {days > 0 ? `${days} ${days > 1 ? "days" : "day"} + ${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}` : `${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}`}
+                        {dateDisplay ? `${dateDisplay} - ${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}` : `${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}`}
                     </div>
                 ) : (
                     <div>

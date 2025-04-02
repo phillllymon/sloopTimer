@@ -5,10 +5,11 @@ export type Boat = {
     notes?: string,
     boatType?: string,
     status: "signed up" | "checked in" | "early" | "racing" | "finished" | "dnf" | "retired",
-    finishTime: false | number,  // ms
+    finishTime: false | number,  // ms timestamp, not courseTime
     staged: boolean,
     classIdx?: number,
-    boatIdx?: number
+    boatIdx?: number,
+    listedFinishTimes?: number[]
 };
 
 export type StartTime = {

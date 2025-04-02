@@ -4,7 +4,7 @@ import "./style/modal.css";
 import { RaceContext } from "./timerContainer";
 import { UploadInfoArea } from "./uploadInfoArea";
 
-import type { BoatClass } from "./types";
+import type { BoatClass, Boat } from "./types";
 
 type RaceListModalProps = {
     hideModal: () => void
@@ -15,6 +15,8 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
 
     const [newRaceAreaOpen, setNewRaceAreaOpen] = useState(false);
     const [uploadAreaOpen, setUploadAreaOpen] = useState(false);
+    const [copyAreaOpen, setCopyAreaOpen] = useState(false);
+    const [keepCheckedIn, setKeepCheckedIn] = useState(true);
 
     const [boatsArr, setBoatsArr] = useState<Record<string, string>[]>([]);
     const [nameError, setNameError] = useState("");
@@ -22,6 +24,61 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
     const handleSelectRace = (idx: number): void => {
         raceContext.setRaceIdx(idx);
         props.hideModal();
+    };
+
+    const handleCopyRace = (idx: number): void => {
+        console.log("Woo! let's copy race " + idx);
+        const newRaceName = (document.getElementById("copy-race-name") as HTMLInputElement).value;
+        if (newRaceName.length > 0) {
+            const today = new Date(Date.now());
+            const raceToCopy = raceContext.raceList[idx];
+            const classes: BoatClass[] = [];
+            const newRace = {
+                name: newRaceName,
+                startDay: {
+                    year: today.getFullYear(),
+                    month: today.getMonth() + 1,
+                    day: today.getDate()
+                },
+                classes: classes
+            };
+            raceToCopy.classes.forEach((existingClass) => {
+                const newBoatList: Boat[] = [];
+                existingClass.boatList.forEach((existingBoat) => {
+                    const newBoatStatus: Boat["status"] = keepCheckedIn ? (existingBoat.status === "signed up" ? "signed up" : "checked in") : "signed up";
+                    const newBoatFinishTime: Boat["finishTime"] = false;
+                    const newBoat: Boat = {
+                        name: existingBoat.name,
+                        sailNumber: existingBoat.sailNumber,
+                        status: newBoatStatus,
+                        finishTime: newBoatFinishTime,
+                        staged: false,
+                        boatType: existingBoat.boatType
+                    };
+                    newBoatList.push(newBoat);
+                });
+                const newClass: BoatClass = {
+                    raceName: newRaceName,
+                    name: existingClass.name,
+                    boatList: newBoatList,
+                    startTime: {
+                        hours: (today.getHours() + 1) % 24,
+                        minutes: 0,
+                        seconds: 0
+                    },
+                    cleared: false,
+                    overEarly: []
+                }
+                newRace.classes.push(newClass);
+            });
+            const raceList = raceContext.raceList;
+            raceList.push(newRace);
+            raceContext.setNewRaceList(raceList);
+            raceContext.setRaceIdx(raceContext.raceList.length - 1);
+            props.hideModal();
+        } else {
+            setNameError("Enter race name");
+        }
     };
 
     const handleCreateRace = () => {
@@ -58,50 +115,171 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
         <>
             <div className="modal-screen" onClick={props.hideModal}></div>
             <div className="modal">
-                {newRaceAreaOpen ? (
+                {copyAreaOpen ? (
                     <>
-                        New race
+                        <div className="vertical-space"></div>
+                        <div className="vertical-space"></div>
+                        <div className="vertical-space"></div>
                         <input
                             type="text"
-                            id="new-race-name"
+                            id="copy-race-name"
                             className="new-boat-input new-race-input"
                             placeholder="enter race name">
                         </input>
-                        <br/>
-                        {uploadAreaOpen ? (
-                            <UploadInfoArea
-                                setRaceInfo={setRaceInfo}
-                                nameError={nameError} />
-                        ) : (
-                            <div className="blue-button" onClick={() => setUploadAreaOpen(true)}>
-                                Upload csv
-                            </div>
-                        )}
-                        <div
-                            className="blue-button modal-list-button"
-                            onClick={handleCreateRace}>
-                            Create race
+                        <div className="small-text red-text">
+                            {nameError}
                         </div>
+                        <div className="vertical-space"></div>
+                        <div className="vertical-space"></div>
+                        <div className="vertical-space"></div>
+                        <div className="small-text text-gray">
+                            Select race to copy
+                        </div>
+                        <div className="class-list vertical-limit-size">
+                            {raceContext.raceList.map((race, i) => {
+                                let numBoats = 0;
+                                let numClasses = 0;
+                                race.classes.forEach((raceClass) => {
+                                    numBoats += raceClass.boatList.length;
+                                    numClasses += 1;
+                                });
+                                return (
+                                    <div
+                                        className="boat-entry"
+                                        onClick={() => handleCopyRace(i)}
+                                        key={i}>
+                                        <div className="vertical">
+                                            
+                                            <div>
+                                                {race.name}
+                                            </div>
+                                            <div className="small-text text-gray horizontal-left">
+                                                <div>
+                                                    classes: {numClasses}
+                                                </div>
+                                                <div className="space"></div>
+                                                <div className="space"></div>
+                                                <div className="space"></div>
+                                                <div>
+                                                    boats: {numBoats}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <div className="vertical-space"></div>
+                        <div className="vertical-space"></div>
+                        <div className="vertical-space"></div>
+                        <div className="horizontal-left">
+                            <input
+                                type="checkbox"
+                                id="checked-in-checkbox"
+                                className="check-checkbox"
+                                checked={keepCheckedIn}
+                                onChange={(e) => setKeepCheckedIn(e.target.checked)} />
+                            <div className="space"></div>
+                            <div className="small-text text-gray">
+                                Keep boats checked in
+                            </div>
+                        </div>
+                        <div className="vertical-space"></div>
+                        <div className="vertical-space"></div>
+                        <div className="vertical-space"></div>
                     </>
                 ) : (
                     <>
-                        <br />
-                        <div className="blue-button modal-list-button" onClick={() => setNewRaceAreaOpen(true)}>
-                            + New race
-                        </div>
-                        races:
-                        {raceContext.raceList.map((race, i) => {
-                            return (
+                        {newRaceAreaOpen ? (
+                            <>
+                                <div className="vertical-space"></div>
+                                <div className="vertical-space"></div>
+                                <div className="vertical-space"></div>
+                                <div className="small-text text-gray">
+                                    New race
+                                </div>
+                                <input
+                                    type="text"
+                                    id="new-race-name"
+                                    className="new-boat-input new-race-input"
+                                    placeholder="enter race name">
+                                </input>
+                                <br/>
+                                {uploadAreaOpen ? (
+                                    <UploadInfoArea
+                                        setRaceInfo={setRaceInfo}
+                                        nameError={nameError} />
+                                ) : (
+                                    <>
+                                        <div className="blue-button" onClick={() => setUploadAreaOpen(true)}>
+                                            Upload csv
+                                        </div>
+                                        <div className="small-text text-gray">
+                                            (optional)
+                                        </div>
+                                    </>
+                                )}
+                                <br />
                                 <div
                                     className="blue-button modal-list-button"
-                                    onClick={() => handleSelectRace(i)}
-                                    key={i}>
-                                    {race.name}
+                                    onClick={handleCreateRace}>
+                                    Create race
                                 </div>
-                            );
-                        })}
+                            </>
+                        ) : (
+                            <>
+                                <div className="vertical-space"></div>
+                                <div className="vertical-space"></div>
+                                <div className="blue-button modal-list-button" onClick={() => setNewRaceAreaOpen(true)}>
+                                    Add new race
+                                </div>
+                                <div className="blue-button modal-list-button" onClick={() => setCopyAreaOpen(true)}>
+                                    Copy race
+                                </div>
+                                <div className="vertical-space"></div>
+                                <div className="vertical-space"></div>
+                                <div className="small-text text-gray">
+                                    Select existing race
+                                </div>
+                                <div className="class-list vertical-limit-size">
+                                    {raceContext.raceList.map((race, i) => {
+                                        let numBoats = 0;
+                                        let numClasses = 0;
+                                        race.classes.forEach((raceClass) => {
+                                            numBoats += raceClass.boatList.length;
+                                            numClasses += 1;
+                                        });
+                                        return (
+                                            <div
+                                                className="boat-entry"
+                                                onClick={() => handleSelectRace(i)}
+                                                key={i}>
+                                                <div className="vertical">
+                                                    
+                                                    <div>
+                                                        {race.name}
+                                                    </div>
+                                                    <div className="small-text text-gray horizontal-left">
+                                                        <div>
+                                                            classes: {numClasses}
+                                                        </div>
+                                                        <div className="space"></div>
+                                                        <div className="space"></div>
+                                                        <div className="space"></div>
+                                                        <div>
+                                                            boats: {numBoats}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </>
+                        )}
                     </>
                 )}
+                
             </div>
         </>
     );

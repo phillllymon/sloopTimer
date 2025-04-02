@@ -23,6 +23,17 @@
     color: gray;
 }
 
+.edit-time-input {
+    height: 3vh;
+    width: 15%;
+    font-size: 2vh;
+    text-align: center;
+}
+
+.edit-seconds-input {
+    width: 30%;
+}
+
 .orange-button {
     background-color: orange;
     color: black;
