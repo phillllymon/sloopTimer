@@ -210,3 +210,8 @@
 .check-checkbox {
     transform: scale(1.4);
 }
+
+.csv-area {
+    max-height: 60vh;
+    overflow: auto;
+}

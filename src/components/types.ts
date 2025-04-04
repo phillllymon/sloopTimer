@@ -9,7 +9,8 @@ export type Boat = {
     staged: boolean,
     classIdx?: number,
     boatIdx?: number,
-    listedFinishTimes?: number[]
+    listedFinishTimes?: number[],
+    boatId?: string
 };
 
 export type StartTime = {

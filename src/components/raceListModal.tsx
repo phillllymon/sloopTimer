@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import "./style.css";
 import "./style/modal.css";
 import { RaceContext } from "./timerContainer";
-import { UploadInfoArea } from "./uploadInfoArea";
+import { UseCsvArea } from "./useCsvArea";
 
 import type { BoatClass, Boat } from "./types";
 
@@ -27,7 +27,6 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
     };
 
     const handleCopyRace = (idx: number): void => {
-        console.log("Woo! let's copy race " + idx);
         const newRaceName = (document.getElementById("copy-race-name") as HTMLInputElement).value;
         if (newRaceName.length > 0) {
             const today = new Date(Date.now());
@@ -53,7 +52,8 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
                         status: newBoatStatus,
                         finishTime: newBoatFinishTime,
                         staged: false,
-                        boatType: existingBoat.boatType
+                        boatType: existingBoat.boatType,
+                        boatId: existingBoat.boatId
                     };
                     newBoatList.push(newBoat);
                 });
@@ -130,8 +130,6 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
                             {nameError}
                         </div>
                         <div className="vertical-space"></div>
-                        <div className="vertical-space"></div>
-                        <div className="vertical-space"></div>
                         <div className="small-text text-gray">
                             Select race to copy
                         </div>
@@ -195,24 +193,21 @@ export const RaceListModal: React.FC<RaceListModalProps> = (props: RaceListModal
                                 <div className="vertical-space"></div>
                                 <div className="vertical-space"></div>
                                 <div className="vertical-space"></div>
-                                <div className="small-text text-gray">
-                                    New race
-                                </div>
                                 <input
                                     type="text"
                                     id="new-race-name"
                                     className="new-boat-input new-race-input"
-                                    placeholder="enter race name">
+                                    placeholder="new race name">
                                 </input>
                                 <br/>
                                 {uploadAreaOpen ? (
-                                    <UploadInfoArea
+                                    <UseCsvArea
                                         setRaceInfo={setRaceInfo}
                                         nameError={nameError} />
                                 ) : (
                                     <>
                                         <div className="blue-button" onClick={() => setUploadAreaOpen(true)}>
-                                            Upload csv
+                                            Use .csv
                                         </div>
                                         <div className="small-text text-gray">
                                             (optional)
@@ -311,7 +306,8 @@ function parseBoatsArrToClasses(boatsArr: Record<string, string>[], newRaceName:
                 phrf: Number.parseFloat(boatEntry.phrf),
                 status: "signed up",
                 finishTime: false,
-                staged: false
+                staged: false,
+                boatId: boatEntry.boatId
             });
         }
     });

@@ -265,6 +265,8 @@ export const TimerContainer: React.FC = () => {
     }
 
     const [fullScreen, setFullScreen] = useState(false);
+
+    console.log(window.navigator.userAgent);
     return (
         <RaceContext.Provider value={{
             raceList: raceListData,
@@ -278,7 +280,7 @@ export const TimerContainer: React.FC = () => {
             setStagedBoats: setStagedBoats
         }}>
             <div id="full-screen-component">
-                {/* {!fullScreen && <FullScreenPrompt hideModal={() => setFullScreen(true)} />} */}
+                {/* {!fullScreen && window.navigator.userAgent.includes("Android") && <FullScreenPrompt hideModal={() => setFullScreen(true)} />} */}
                 <div className="all-background"></div>
                 
                 <RaceTitle />

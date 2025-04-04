@@ -1,7 +1,6 @@
-const now = Date.now();
-
-const dateObj = new Date(now);
-
-
-console.log(now);
-console.log(dateObj.toString().split("(")[1].split(")")[0]);
+fetch("https://race.styc.org/race_info/Blakely Rock Benefit/2025/boats.csv").then((res) => {
+    console.log(res);
+    res.text().then((r) => {
+        console.log(r);
+    });
+});
