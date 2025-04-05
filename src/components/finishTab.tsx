@@ -7,8 +7,6 @@ import { FinishAllBoats } from "./finishAllBoats";
 
 export const FinishTab: React.FC = () => {
 
-    // TODO - start here adding the same time pinging thing as in startTab - then trickle it down to the lists and the staging area
-
     const raceContext = useContext(RaceContext);
     const [rando, setRando] = useState(Math.random());  // hack to force rerender - see setRando(Math.random()) in handleAddNewClass
     const [currentTime, setCurrentTime] = useState(raceContext.currentTime + (Date.now() - raceContext.lastUpdateTime));

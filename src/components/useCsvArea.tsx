@@ -226,7 +226,12 @@ export const UseCsvArea: React.FC<UseCsvAreaProps> = (props: UseCsvAreaProps) =>
 };
 
 function parseCsvToBoatsArr(csvText: string, labels: Record<string, string>): Record<string, string>[] {
-    const rows = csvText.split("\r\n");
+    // const rows = csvText.split("\r\n");
+    let rows = csvText.split("\n");
+    rows = rows.map((rowStr) => {
+        return rowStr.split("\r")[0];
+    });
+    
     if (rows.length < 2) {
         return [];
     }

@@ -39,7 +39,6 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
     let dateDisplay: string | false = false;
     const todayDateObj = new Date(Date.now());
     if (todayDateObj.getFullYear() !== finishDateObj.getFullYear() || todayDateObj.getDate() !== finishDateObj.getDate() || todayDateObj.getMonth() !== finishDateObj.getMonth()) {
-        // dateDisplay = finishDateObj.toISOString().split("T")[0];
         dateDisplay = finishDateObj.toLocaleDateString();
     }
 
