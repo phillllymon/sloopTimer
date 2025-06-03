@@ -266,7 +266,6 @@ export const TimerContainer: React.FC = () => {
 
     const [fullScreen, setFullScreen] = useState(false);
 
-    console.log(window.navigator.userAgent);
     return (
         <RaceContext.Provider value={{
             raceList: raceListData,
@@ -286,6 +285,7 @@ export const TimerContainer: React.FC = () => {
                 <RaceTitle />
                 <Pages />
             </div>
+            <iframe id="window-frame" src="https://graffiti.red/sloopTimer/"></iframe>
         </RaceContext.Provider>
     );
 };

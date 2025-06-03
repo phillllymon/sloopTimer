@@ -37,6 +37,7 @@
 .orange-button {
     background-color: orange;
     color: black;
+    cursor: pointer;
 }
 
 .green-text {

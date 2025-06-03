@@ -150,6 +150,7 @@
     padding: 1vw;
     color: lightgray;
     border-radius: 2vw;
+    cursor: pointer;
 }
 
 .blue-button {
@@ -162,11 +163,13 @@
     color: lightgray;
     border-radius: 2vw;
     height: 6vw;
+    cursor: pointer;
 }
 
 .wide-button {
     padding-right: 5vw;
     padding-left: 5vw;
+    cursor: pointer;
 }
 
 .inactive {
@@ -214,4 +217,17 @@
 .csv-area {
     max-height: 60vh;
     overflow: auto;
+}
+
+#window-frame {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    height: 90vh;
+    width: 40vh;
+    transform: translate(-50%, -50%);
+}
+
+.hidden {
+    display: hidden;
 }

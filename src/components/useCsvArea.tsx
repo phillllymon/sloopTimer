@@ -46,7 +46,7 @@ export const UseCsvArea: React.FC<UseCsvAreaProps> = (props: UseCsvAreaProps) =>
         paramObj["sailNumber"] = sailNumberLabel;
         paramObj["boatType"] = boatTypeLabel;
         paramObj["phrf"] = phrfLabel;
-        paramObj["id"] = idLabel;
+        paramObj["boatId"] = idLabel;
         // Object.keys(additionalParams).forEach((label) => {
         //     paramObj[label] = additionalParams[label];
         // });
@@ -76,7 +76,7 @@ export const UseCsvArea: React.FC<UseCsvAreaProps> = (props: UseCsvAreaProps) =>
             paramObj["sailNumber"] = sailNumberLabel;
             paramObj["boatType"] = boatTypeLabel;
             paramObj["phrf"] = phrfLabel;
-            paramObj["id"] = idLabel;
+            paramObj["boatId"] = idLabel;
             // Object.keys(additionalParams).forEach((label) => {
             //     paramObj[label] = additionalParams[label];
             // });
@@ -106,7 +106,7 @@ export const UseCsvArea: React.FC<UseCsvAreaProps> = (props: UseCsvAreaProps) =>
                     paramObj["sailNumber"] = sailNumberLabel;
                     paramObj["boatType"] = boatTypeLabel;
                     paramObj["phrf"] = phrfLabel;
-                    paramObj["id"] = idLabel;
+                    paramObj["boatId"] = idLabel;
                     const boatsArr = parseCsvToBoatsArr(theCleanText, paramObj);
                     setBoatsArr(boatsArr);
                 }).catch((err) => {
@@ -227,10 +227,11 @@ export const UseCsvArea: React.FC<UseCsvAreaProps> = (props: UseCsvAreaProps) =>
 
 function parseCsvToBoatsArr(csvText: string, labels: Record<string, string>): Record<string, string>[] {
     // const rows = csvText.split("\r\n");
-    let rows = csvText.split("\n");
-    rows = rows.map((rowStr) => {
-        return rowStr.split("\r")[0];
-    });
+
+    let rows = csvText.split("\r\n");
+    if (rows.length < 2) {
+        rows = csvText.split("\n");
+    }
     
     if (rows.length < 2) {
         return [];
@@ -250,6 +251,5 @@ function parseCsvToBoatsArr(csvText: string, labels: Record<string, string>): Re
         });
         answer.push(rowObj);
     });
-    console.log(answer);
     return answer;
 }

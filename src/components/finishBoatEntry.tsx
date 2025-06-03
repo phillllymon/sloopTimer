@@ -93,7 +93,6 @@ export const FinishBoatEntry: React.FC<FinishBoatEntryProps> = (props: FinishBoa
                     // dateDisplay = finishDateObj.toISOString().split("T")[0];
                     dateDisplay = finishDateObj.toLocaleDateString();
                 }
-
                 setBoatFinished(true);
             }
         }

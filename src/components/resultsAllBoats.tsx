@@ -7,6 +7,7 @@ import { DownArrow } from "./icons/downArrow";
 import { ResultsBoatEntry } from "./resultsBoatEntry";
 import { SetLabelsModal } from "./setLabelsModal";
 import { CsvModal } from "./csvModal";
+import type { Boat } from "./types";
 
 type BoatKey = "name" | "sailNumber" | "phrf" | "boatType" | "boatId" | "finishTime";
 
@@ -21,9 +22,8 @@ type BoatObj = {
     courseTime?: string
 };
 
-type ResultsClassListProps = {
+type ResultsAllBoatsProps = {
     raceIdx: number,
-    classIdx: number,
     forceUpdate: () => void,
     rando: number
 };
@@ -39,7 +39,7 @@ const niceNames: Record<string, string> = {
     "courseTime": "Course time"
 };
 
-export const ResultsClassList: React.FC<ResultsClassListProps> = (props: ResultsClassListProps) => {
+export const ResultsAllBoats: React.FC<ResultsAllBoatsProps> = (props: ResultsAllBoatsProps) => {
     
     const [labelsModalOpen, setLabelsModalOpen] = useState(false);
     const [csvString, setCsvString] = useState("");
@@ -60,14 +60,23 @@ export const ResultsClassList: React.FC<ResultsClassListProps> = (props: Results
         setExpanded(expanded ? false : true);
     }
     const raceContext = useContext(RaceContext);
-    const boats = raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList;
+    let boats: Boat[] = [];
     const numBoats = boats.length;
     let numFinished = 0;
-    raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList.forEach((boat) => {
-        if (boat.finishTime) {
-            numFinished += 1;
-        }
-    });
+    if (props.raceIdx > -1) {
+        raceContext.raceList[props.raceIdx].classes.forEach((boatClass, classIdx) => {
+            boatClass.boatList.forEach((boatEle, boatIdx) => {
+                boatEle.classIdx = classIdx;
+                boatEle.boatIdx = boatIdx;
+                boats.push(boatEle);
+            });
+        });
+        boats.forEach((boat) => {
+            if (boat.finishTime) {
+                numFinished += 1;
+            }
+        });
+    }
 
     const exportCsv = (): void => {
         const objArr: BoatObj[] = [];
@@ -78,7 +87,7 @@ export const ResultsClassList: React.FC<ResultsClassListProps> = (props: Results
                     if (labelsObj[key]) {
                         if (key === "courseTime" && boat.finishTime) {
                             const startDate = raceContext.raceList[props.raceIdx].startDay;
-                            const startTime = raceContext.raceList[props.raceIdx].classes[props.classIdx].startTime;
+                            const startTime = raceContext.raceList[props.raceIdx].classes[boat.classIdx!].startTime;
                             const startTimeDateObj = new Date(startDate.year, startDate.month - 1, startDate.day, startTime.hours, startTime.minutes, startTime.seconds);
                             const startTimeMs = startTimeDateObj.getTime();
                             const courseTimeMs = boat.finishTime - startTimeMs;
@@ -91,7 +100,7 @@ export const ResultsClassList: React.FC<ResultsClassListProps> = (props: Results
                             let hours = finishDateObj.getHours();
                             boatObj[key] = `${formatTwoDigits(hours)}:${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}`;
                         } else if (key === "class") {
-                            boatObj[key] = raceContext.raceList[props.raceIdx].classes[props.classIdx].name;
+                            boatObj[key] = raceContext.raceList[props.raceIdx].classes[boat.classIdx!].name;
                         } else if (boat[key as BoatKey]) {
                             boatObj[key] = boat[key as BoatKey]!.toString();
                         } else {
@@ -136,7 +145,7 @@ export const ResultsClassList: React.FC<ResultsClassListProps> = (props: Results
                             {expanded ? <DownArrow /> : <RightArrow />}
                         </div>
                         <div className="class-title">
-                            {props.raceIdx > -1 && raceContext.raceList[props.raceIdx].classes[props.classIdx].name}
+                            All boats
                         </div>
                     </div>
                     <div className="vertical">
@@ -157,11 +166,11 @@ export const ResultsClassList: React.FC<ResultsClassListProps> = (props: Results
                     </div>    
                 </div>}
                 {expanded && <div>
-                    {props.raceIdx > -1 && raceContext.raceList[props.raceIdx].classes[props.classIdx].boatList.map((boat, i) => {
+                    {boats.map((boat, i) => {
                         return <ResultsBoatEntry 
                             raceIdx={props.raceIdx}
-                            classIdx={props.classIdx}
-                            boatIdx={i}
+                            classIdx={boat.classIdx!}
+                            boatIdx={boat.boatIdx!}
                             labelsObj={labelsObj}
                             key={i} />;
                     })}

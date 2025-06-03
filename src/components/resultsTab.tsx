@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "./style.css";
 import { RaceContext } from "./timerContainer";
 import { ResultsClassList } from "./resultsClassList";
+import { ResultsAllBoats } from "./resultsAllBoats";
 
 export const ResultsTab: React.FC = () => {
 
@@ -28,6 +29,10 @@ export const ResultsTab: React.FC = () => {
         <div className="page finish-page">
             <div className="scroll-section">
                 <center>
+                    <ResultsAllBoats
+                        raceIdx={raceContext.raceIdx}
+                        forceUpdate={forceUpdate}
+                        rando={rando} />
                     {raceContext.raceIdx > -1 && raceContext.raceList[raceContext.raceIdx].classes.map((boatClass, i) => {
                         return (
                             <ResultsClassList
